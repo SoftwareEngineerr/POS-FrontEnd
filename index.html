@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- ✅ Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <!-- ✅ Favicon (correct type) -->
+    <link rel="icon" href="/images/logos/logo.png" />
+
+    <!-- 🚀 PRELOAD MAIN JS (helps faster execution) -->
+    <link rel="modulepreload" href="/src/main.tsx" />
+
+    <!-- 🚀 OPTIONAL: preload LCP image (replace with your real one) -->
+    <!--
+    <link
+      rel="preload"
+      as="image"
+      href="http://localhost:4000/Public/your-main-image.jpg"
+    />
+    -->
+
+  </head>
+
+  <body>
+    <!-- ✅ Root -->
+    <div id="root"></div>
+
+    <!-- 🚀 Main script -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
