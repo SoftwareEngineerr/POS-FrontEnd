@@ -53,9 +53,9 @@ const Item = ({Addproduct , selectedItem , setSelectedItem , p, i}) => {
             <TableCell>{p.product_name}</TableCell>
             <TableCell>{p.quantity}</TableCell>
             <TableCell>{p.quantity - p.remaining_quantity}</TableCell>
-            <TableCell>{p.sale_price}</TableCell>
+            <TableCell>{Number(p.perproduct).toFixed(1)}</TableCell>
             <TableCell sx={{ fontWeight: 600 }}>
-                {p.quantity * p.sale_price}
+                {p.total_cost}
             </TableCell>
             {
                 checker ? 

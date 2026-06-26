@@ -112,7 +112,8 @@ const updateproducts = (e) => {
     // console.log(e)
     // setSelectedItem(e)
     const getpayment = e?.reduce(
-        (sum, p) => sum + p.returnquantity * p.sale_price,
+        // console.log(p.perproduct),
+        (sum, p) => sum + (p.returnquantity * p.perproduct),
         0
     )
     console.log(getpayment)

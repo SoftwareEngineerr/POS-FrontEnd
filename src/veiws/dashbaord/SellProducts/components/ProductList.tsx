@@ -9,6 +9,11 @@ import {
   Select,
   MenuItem,
   Divider,
+  IconButton,
+  Paper,
+  Stack,
+  Tooltip,
+  useTheme,
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
@@ -16,6 +21,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../../../redux/actions/GetRequest";
 import { Token } from "../../../../constant/token";
 import { Components } from "../../../../components";
+import { GridViewOutlined, GridViewSharp, ViewListOutlined, ViewListSharp } from "@mui/icons-material";
+
+
 
 type Product = {
   id: number;
@@ -36,6 +44,8 @@ const ProductList = ({ cart, setCart }: any) => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
+  const [view, setView] = useState<"grid" | "list">("grid");
+  const theme = useTheme().palette;
 
   const loader = useRef<HTMLDivElement | null>(null);
 
@@ -99,6 +109,8 @@ const ProductList = ({ cart, setCart }: any) => {
     .filter((p) =>
       p.name.toLowerCase().includes(search.toLowerCase())
     )
+    .filter((p) => p.stock > 0)
+    .filter((p) => p.price > 0)
     .filter((p) => (category ? p.category == category : true))
     .filter((p) => (brand ? p.brand == brand : true))
     .slice(0, visibleCount);
@@ -110,50 +122,90 @@ const ProductList = ({ cart, setCart }: any) => {
 
 
          {/* Filters */}
-        <Grid container spacing={1}>
-            <Grid size={{
-                lg:6 , xs:12
-            }}>
-                <Components.Input
-                label="Search product"
-                fullWidth
-                // size="small"
-                value={search}
-                onChange={(e) => {
-                    setSearch(e.target.value);
-                    setVisibleCount(30);
-                }}
-                />
-            </Grid>
-            <Grid  size={{
-                lg:3 , xs:12
-            }}>
-                <Components.Categorytypetwo
-                    getvalue={(e)=>{
-                        console.log(e)
-                        setCategory(e);
-                        setVisibleCount(30);
-                    }
-        
-                    }
-                />
-            </Grid>
 
-            <Grid size={{
-                lg:3 , xs:12
-            }}>
-                <Components.Brandtypetwo
-                    getvalue={(e)=>{
-                        console.log(e)
-                        setBrand(e);
-                        setVisibleCount(30);
-                    }
-        
-                    }
-                />
-            </Grid>
-            
+      <Grid container spacing={2} alignItems="center">
+        {/* Search */}
+        <Grid size={{ xs: 12, md: 5, lg: 4 }}>
+          <Components.Input
+            label="Search Product 🔍"
+            fullWidth
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setVisibleCount(30);
+            }}
+          />
         </Grid>
+
+        {/* Category */}
+        <Grid size={{ xs: 12, md: 3.5, lg: 3 }}>
+          <Components.Categorytypetwo
+            getvalue={(value) => {
+              setCategory(value);
+              setVisibleCount(30);
+            }}
+          />
+        </Grid>
+
+        {/* Brand */}
+        <Grid size={{ xs: 12, md: 3.5, lg: 3 }}>
+          <Components.Brandtypetwo
+            getvalue={(value) => {
+              setBrand(value);
+              setVisibleCount(30);
+            }}
+          />
+        </Grid>
+
+        {/* View Switch */}
+        <Grid size={{ xs: 12, md: 12, lg: 2 }}>
+          <Stack
+            direction="row"
+            justifyContent={{ xs: "center", lg: "flex-end" }}
+          >
+            <Paper
+              elevation={0}
+              sx={{
+                display: "flex",
+                border: "1px solid",
+                borderColor: "divider",
+                borderRadius: 2,
+                overflow: "hidden",
+                marginRight: "5px"
+              }}
+            >
+              <Tooltip title="Grid View">
+                <IconButton
+                  color={view === "grid" ? "primary" : "default"}
+                  onClick={() => setView("grid")}
+                >
+                  <GridViewSharp />
+                </IconButton>
+              </Tooltip>
+            </Paper>
+
+          <Paper
+              elevation={0}
+              sx={{
+                display: "flex",
+                border: "1px solid",
+                borderColor: "divider",
+                borderRadius: 2,
+                overflow: "hidden",
+              }}
+            >
+              <Tooltip title="List View">
+                <IconButton
+                  color={view === "list" ? "primary" : "default"}
+                  onClick={() => setView("list")}
+                >
+                  <ViewListSharp />
+                </IconButton>
+              </Tooltip>
+            </Paper>
+          </Stack>
+        </Grid>
+      </Grid>
 
         <Divider sx={{margin: "10px 0px 20px" , }} />
 

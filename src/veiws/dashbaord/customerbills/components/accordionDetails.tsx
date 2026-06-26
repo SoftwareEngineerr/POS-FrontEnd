@@ -52,6 +52,36 @@ const ListAccordionDetails = ({ supplier }) => {
             date: new Date(item.created_at),
           };
         }
+        if (item.old_dues) {
+          return {
+            type: "Old Dues",
+            reference: "Old Dues",
+            debit: 0,
+            credit: Number(item.old_dues || 0),
+            date: new Date(item.created_at),
+          };
+        }
+        if (item.paytype === "CUSTOMER_RETURN") {
+          return {
+            type: "Customer Returned Payment",
+            reference: item.bill_no,
+            debit: 0,
+            // credit: 0,
+            credit: Number(item.pay_out || 0),
+            date: new Date(item.created_at),
+          };
+        }
+        if(item.total_return_amount){
+          return {
+            type: "Customer Return Bill",
+            reference: item.bill_no,
+            // debit: 0,
+            // debit: 0,
+            debit: Number(item.total_return_amount || 0),
+            credit: 0,
+            date: new Date(item.created_at),
+          };
+        }
 
         if (item.type === "PAYMENT") {
           return {
@@ -62,6 +92,8 @@ const ListAccordionDetails = ({ supplier }) => {
             date: new Date(item.Date),
           };
         }
+
+        
 
         return null;
       })

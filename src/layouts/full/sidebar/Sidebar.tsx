@@ -47,10 +47,11 @@ const Sidebar = (props) => {
           background: "rgba(255,255,255,0.6)",
           borderBottom: "1px solid rgba(0,0,0,0.05)",
           display: "flex",
-          justifyContent: "center"
+          justifyContent: "center",
+          height: "104px"
         }}
       >
-        <Logo width="140px" />
+        <Logo width="350px" top="-50px" position="absolute" />
       </Box>
 
       {/* 🔥 MENU (SCROLLABLE) */}

@@ -16,7 +16,7 @@ const Logo = (props) => {
   return (
     // <LinkStyled>
     <img 
-    style={{ height: window.innerWidth >1024? false: true ? 'auto' : '95%', width: props.width ? props.width : 'auto',maxHeight:"300px", marginTop:'10px', marginLeft: '5px' }} 
+    style={{ height: window.innerWidth >1024? false: true ? 'auto' : '95%', width: props.width ? props.width : 'auto',position: props.position,top: props.top, maxHeight:"300px", marginTop:'10px', marginLeft: '5px' }} 
     src={`/images/logos/logo.png`}
     alt="Logo" 
     // height={window.innerWidth >1024? false: true ? 150 : 120} 

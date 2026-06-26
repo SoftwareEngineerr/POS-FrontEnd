@@ -2,7 +2,7 @@
   import Login from "../veiws/website/Login/login";
   // import Login from "../veiws/";
   import './routeAndHeader.css'
-  import { Dashboard} from "@mui/icons-material";
+  import { AccountBalanceWalletSharp, AssignmentReturnSharp, CurrencyExchangeSharp, Dashboard, Groups2Sharp, Inventory2Sharp, LocalShippingRounded, PaidSharp, PaymentsSharp, ReceiptLongSharp, TrendingDownSharp, TrendingUpSharp} from "@mui/icons-material";
   import { Box, Typography } from "@mui/material";
   import ProductRegistration from "../veiws/dashbaord/products/products";
   import ProductEdit from "../veiws/dashbaord/productedit/productedit";
@@ -82,7 +82,7 @@ import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
                           <span>Khata </span>
                         </Box>
                       ),
-                      icon: Dashboard,
+                      icon: AccountBalanceWalletSharp,
                       href: '/Private/Khata',
                       path: '/Private/Khata',
                       element: <div id="Refund"><Suspense><CustomerRegister /></Suspense></div>
@@ -96,7 +96,7 @@ import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
                           <span>Return </span>
                         </Box>
                       ),
-                      icon: Dashboard,
+                      icon: AssignmentReturnSharp,
                       href: '/Private/return',
                       path: '/Private/return',
                       element: <div id="Refund"><Suspense><CustomerReturn /></Suspense></div>
@@ -125,7 +125,7 @@ import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
                           <span>Buy Products </span>
                         </Box>
                       ),
-                      icon: Dashboard,
+                      icon: Inventory2Sharp,
                       href: '/Private/Product',
                       path: '/Private/Product',
                       element: <div id="Refund"><Suspense>
@@ -142,7 +142,7 @@ import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
                           <span>Supplier Khata </span>
                         </Box>
                       ),
-                      icon: Dashboard,
+                      icon: LocalShippingRounded,
                       href: '/Private/supplier/register',
                       path: '/Private/supplier/register',
                       element: <div id="Refund"><Suspense>
@@ -158,7 +158,7 @@ import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
                           <span>Supplier Return</span>
                         </Box>
                       ),
-                      icon: Dashboard,
+                      icon: AssignmentReturnSharp,
                       href: '/Private/supplier/return',
                       path: '/Private/supplier/return',
                       element: <div id="Refund"><Suspense>
@@ -192,7 +192,7 @@ import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
                           <span>Users </span>
                         </Box>
                       ),
-                      icon: Dashboard,
+                      icon: Groups2Sharp,
                       href: '/Private/employee/RegisterPage',
                       path: '/Private/employee/RegisterPage',
                       element: <div id="Refund"><Suspense><RegisterPage /></Suspense></div>
@@ -206,7 +206,7 @@ import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
                           <span>Users Salary </span>
                         </Box>
                       ),
-                      icon: Dashboard,
+                      icon: PaidSharp,
                       href: '/Private/employee/salary',
                       path: '/Private/employee/salary',
                       element: <div id="Refund"><Suspense><EmployeeSalary /></Suspense></div>
@@ -235,7 +235,7 @@ import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
                           <span>Daily Transactions </span>
                         </Box>
                       ),
-                      icon: Dashboard,
+                      icon: ReceiptLongSharp,
                       href: '/Private/dailytransactions',
                       path: '/Private/dailytransactions',
                       element: <div id="Refund"><Suspense><Roznamcha /></Suspense></div>
@@ -246,10 +246,10 @@ import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
                       id: 7,
                       title: (
                         <Box className="menuItem" sx={{display: 'flex', justifyContent: 'space-between'}} >
-                          <span>Faince </span>
+                          <span>Finance </span>
                         </Box>
                       ),
-                      icon: Dashboard,
+                      icon: CurrencyExchangeSharp,
                       href: '/Private/return',
                       path: '/Private/return',
                       element: <div id="Refund"><Suspense><ProductEdit /></Suspense></div>
@@ -262,7 +262,7 @@ import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
                           <span>Expense </span>
                         </Box>
                       ),
-                      icon: Dashboard,
+                      icon: PaymentsSharp,
                       href: '/Private/expense',
                       path: '/Private/expense',
                       element: <div id="Refund"><Suspense><ExpensePage /></Suspense></div>
@@ -278,7 +278,7 @@ import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
                           <span>Invest </span>
                         </Box>
                       ),
-                      icon: Dashboard,
+                      icon: TrendingUpSharp,
                       href: '/Private/invest',
                       path: '/Private/invest',
                       element: <div id="Refund"><Suspense><InvestmentPage /></Suspense></div>
@@ -291,7 +291,7 @@ import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
                           <span>divest </span>
                         </Box>
                       ),
-                      icon: Dashboard,
+                      icon: TrendingDownSharp,
                       href: '/Private/divest',
                       path: '/Private/divest',
                       element: <div id="Refund"><Suspense><DivestmentPage /></Suspense></div>

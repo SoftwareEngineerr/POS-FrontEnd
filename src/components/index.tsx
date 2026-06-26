@@ -7,9 +7,12 @@ import Categorytypetwo from "./category/categorytypetwo";
 import CountdownTimer from "./counter/countDownTimer";
 import CustomDateRange from "./date/date";
 import { Fileimage } from "./image/image";
+import { DesignedInput } from "./input/designedInput";
 import { Input } from "./input/input";
 import Loader from "./loader/loader";
 import Logo from "./logo/logo";
+import CustomPaper from "./paper";
+import { SuggestionInput } from "./productSuggestion";
 import Showimage from "./showimage/showimage";
 import Supplier from "./supplier/supplier";
 
@@ -18,6 +21,7 @@ export const Components = {
     CountdownTimer,
     Image: Fileimage,
     Input,
+    DesignedInput,
     Logo,
     Category,
     Categorytypetwo,
@@ -26,5 +30,7 @@ export const Components = {
     Showimage,
     CustomDateRange,
     Brand,
-    Brandtypetwo
+    Brandtypetwo,
+    CustomPaper,
+    SuggestionInput
 }

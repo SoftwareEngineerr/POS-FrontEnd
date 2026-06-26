@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PostRequest } from "../../../../redux/actions/PostRequest";
 import { Token } from "../../../../constant/token";
 import { UpdateOwnState } from "../../../../redux/actions/state/state";
+import { LabelOutlined } from "@mui/icons-material";
 // import UpdateState from "../../../../redux/reducer/state/state";
 
 const Brand: React.FC = () => {
@@ -69,7 +70,8 @@ const Brand: React.FC = () => {
 
       <Components.CustomBtn
         style={{ width: "100%", marginBottom: "20px" , background: "black"}}
-        data="+ Add Brand"
+        data=" Add Brand"
+        icon={<LabelOutlined sx={{marginRight: "5px"}} />}
         click={() => setOpen(true)}
       />
 

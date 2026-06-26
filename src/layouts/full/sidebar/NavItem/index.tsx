@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useRoutes } from "react-router-dom";
 import {
   ListItemIcon,
   ListItem,
@@ -14,11 +14,15 @@ import { motion } from "framer-motion";
 const NavItem = ({ item, level, pathDirect, onClick }) => {
   const Icon = item.icon;
   const theme = useTheme();
+  const currenturl = useLocation()
+  const navchecker = currenturl.pathname == item.href
+
+  console.log()
 
   const ListItemStyled = styled(ListItem)(({ theme }) => ({
-    borderRadius: "12px",
+    // borderRadius: "12px",
     margin: "4px 8px",
-    padding: "3px 2px",
+    padding: "5px 2px",
     transition: "all 0.25s ease",
     cursor: "pointer",
 
@@ -26,18 +30,18 @@ const NavItem = ({ item, level, pathDirect, onClick }) => {
     alignItems: "center",
     gap: "10px",
 
-    color: theme.palette.text.secondary,
+    color: navchecker  ? theme.palette.primary.main : theme.palette.text.secondary,
 
     // 🔥 HOVER
     "&:hover": {
-      background: "rgba(25, 118, 210, 0.08)",
+      // background: "rgba(25, 118, 210, 0.08)",
       transform: "translateX(6px)",
       color: theme.palette.primary.main,
     },
 
     // 🔥 ACTIVE
     "&.Mui-selected": {
-      background: theme.palette.primary.main,
+      // background: theme.palette.primary.main,
       color: "#fff",
       boxShadow: "0px 4px 12px rgba(25,118,210,0.3)",
 
@@ -48,14 +52,22 @@ const NavItem = ({ item, level, pathDirect, onClick }) => {
   }));
 
   return (
-    <List component="li" disablePadding key={item.id}>
+    <List component="li" disablePadding key={item.id}
+      sx={{
+        backgroundColor : currenturl.pathname == item.href ? theme.palette.primary.light : null,
+        borderLeft: navchecker  ? `5px solid ${theme.palette.primary.main}` : null,
+        borderRadius: '4px',
+        transition: "1s"
+        // background: "pink"
+      }}
+    >
       
         <ListItemStyled
-          component={item.external ? "a" : NavLink}
+          component={NavLink}
           to={item.href}
-          href={item.external ? item.href : ""}
+          // href={item.external ? item.href : ""}
           selected={pathDirect === item.href}
-          target={item.external ? "_blank" : ""}
+          // target={item.external ? "_blank" : ""}
           onClick={onClick}
         >
           {/* 🔥 ICON */}
@@ -89,6 +101,7 @@ const NavItem = ({ item, level, pathDirect, onClick }) => {
               },
               display: (theme) =>
                 theme.palette.sidemenutext.display.display,
+              // background: "pink"
             }}
           />
         </ListItemStyled>

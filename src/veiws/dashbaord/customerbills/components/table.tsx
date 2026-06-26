@@ -12,6 +12,7 @@ import {
   IconButton,
   Button,
   Chip,
+  useTheme,
 } from "@mui/material";
 
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
@@ -24,6 +25,7 @@ import { PictureAsPdfOutlined } from "@mui/icons-material";
 const CustomTable = ({ finalLedger }) => {
   const { page, setPage, totalPages, paginatedData } =
     usePagination(finalLedger, 10);
+  const theme = useTheme().palette
 
   // 💎 COPY STATE
   const [copied, setCopied] = useState(false);
@@ -147,6 +149,9 @@ const CustomTable = ({ finalLedger }) => {
           <TableBody>
             {paginatedData.map((item, index) => (
               <TableRow key={index}>
+                {
+                  console.log(item)
+                }
 
                 <TableCell>
                   <Chip
@@ -154,7 +159,14 @@ const CustomTable = ({ finalLedger }) => {
                     size="small"
                     sx={{
                         fontWeight: 600,
-                        backgroundColor: item.type === "BILL" ? "#fee2e2" : "#dcfce7",
+                        backgroundColor:
+                          item.type === "BILL"
+                            ? "#fee2e2"
+                            : item.reference == "Old Dues"
+                            ? theme.primary.light
+                            : item.type == "Customer Return Bill"
+                            ? theme.primary.light
+                            : "#dcfce7",
                         color: item.type === "BILL" ? "#dc2626" : "#16a34a",
                     }}
                     />

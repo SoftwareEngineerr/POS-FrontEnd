@@ -1,16 +1,51 @@
-import React, { memo, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { MenuItem, Select } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetRequest } from '../../redux/actions/GetRequest';
-import { Token } from '../../constant/token';
+import React, { memo, useEffect, useState } from "react";
+import { styled } from "@mui/material/styles";
+import { MenuItem, Select } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { GetRequest } from "../../redux/actions/GetRequest";
+import { Token } from "../../constant/token";
+
+// 👇 Styled Select (same idea as your TextField)
+const StyledSelect = styled(Select)(({ theme }) => ({
+  width: "100%",
+
+  "& .MuiSelect-select": {
+    padding: "14px 16px",
+    fontSize: "0.95rem",
+    fontWeight: 500,
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: 6,
+  },
+
+  "& .MuiOutlinedInput-notchedOutline": {
+    borderColor: theme.palette.divider,
+    transition: "all 0.25s ease",
+  },
+
+  "&:hover .MuiOutlinedInput-notchedOutline": {
+    borderColor: theme.palette.primary.light,
+  },
+
+  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderWidth: 2,
+    borderColor: theme.palette.primary.main,
+  },
+
+  "&.Mui-focused": {
+    boxShadow: `0 0 0 4px ${theme.palette.primary.main}15`,
+  },
+
+  "&.Mui-disabled": {
+    backgroundColor: theme.palette.action.hover,
+  },
+}));
 
 const Categorytypetwo = ({ getvalue, label = "Select Category" }) => {
   const dispatch = useDispatch();
-  const url = useSelector((state : any) => state.Api);
+  const url = useSelector((state) => state.Api);
 
   const [categories, setCategories] = useState([]);
-  const [ selectcat , setSelectcat ] = useState()
+  const [selectcat, setSelectcat] = useState("");
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -25,19 +60,17 @@ const Categorytypetwo = ({ getvalue, label = "Select Category" }) => {
     fetchCategories();
   }, [dispatch, url.GetCategory]);
 
-
-
-  const updateState = async(e) => {
-    setSelectcat(e)
-    getvalue(e) 
-  }
+  const updateState = (value) => {
+    setSelectcat(value);
+    getvalue(value);
+  };
 
   return (
-    <Select
-      value={selectcat || ""}
+    <StyledSelect
+      value={selectcat}
       onChange={(e) => updateState(e.target.value)}
-      fullWidth
       displayEmpty
+      fullWidth
     >
       <MenuItem value="">{label}</MenuItem>
 
@@ -46,11 +79,8 @@ const Categorytypetwo = ({ getvalue, label = "Select Category" }) => {
           {cat.name}
         </MenuItem>
       ))}
-    </Select>
+    </StyledSelect>
   );
-  
-}
+};
 
-Categorytypetwo.propTypes = {}
-
-export default memo(Categorytypetwo)
+export default memo(Categorytypetwo);

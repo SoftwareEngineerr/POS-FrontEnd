@@ -18,7 +18,7 @@ export const CustomBtn = memo((props) => {
       fontFamily: "Poppins, sans-serif",
       textTransform: "none",
       fontSize: "1rem",
-      padding: "10px 24px",
+      padding: "16px 24px",
       borderRadius: "12px",
       width: '100%',
       background:
@@ -32,6 +32,7 @@ export const CustomBtn = memo((props) => {
       onClick={props.click}
       disabled= {props.disable}
     >
+      {props.icon}
       {props.data}
     </Button>
   );
@@ -40,6 +41,7 @@ export const CustomBtn = memo((props) => {
 CustomBtn.propTypes = {
   type: PropTypes.string,
   link: PropTypes.string,
+  icon: PropTypes.object,
   style: PropTypes.object,  // Ensure that style is expected to be an object
   title: PropTypes.string,
   click: PropTypes.func,

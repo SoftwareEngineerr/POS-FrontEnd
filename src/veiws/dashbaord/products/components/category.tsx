@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PostRequest } from "../../../../redux/actions/PostRequest";
 import { Token } from "../../../../constant/token";
 import { UpdateOwnState } from "../../../../redux/actions/state/state";
+import { FileCopyOutlined, FileCopySharp, FolderCopyOutlined } from "@mui/icons-material";
 // import UpdateState from "../../../../redux/reducer/state/state";
 
 const Category: React.FC = () => {
@@ -69,7 +70,8 @@ const Category: React.FC = () => {
 
       <Components.CustomBtn
         style={{ width: "100%", marginBottom: "20px" }}
-        data="+ Add Category"
+        data={`Add Category`}
+        icon={<FolderCopyOutlined sx={{marginRight: "5px"}} />}
         click={() => setOpen(true)}
       />
 

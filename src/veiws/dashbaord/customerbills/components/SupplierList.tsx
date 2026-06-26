@@ -36,7 +36,7 @@ const SupplierList = () => {
   };
 
   return (
-    <Paper sx={{ p: 3 }}>
+    <Box>
       <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
         Customer Accounts
       </Typography>
@@ -74,7 +74,7 @@ const SupplierList = () => {
           No suppliers yet 🚀
         </Box>
       )}
-    </Paper>
+    </Box>
   );
 };
 

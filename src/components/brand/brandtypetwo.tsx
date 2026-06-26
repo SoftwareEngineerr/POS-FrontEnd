@@ -1,56 +1,96 @@
-import React, { memo, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { MenuItem, Select } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetRequest } from '../../redux/actions/GetRequest';
-import { Token } from '../../constant/token';
+import React, { memo, useEffect, useState } from "react";
+import { styled } from "@mui/material/styles";
+import { MenuItem, Select } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { GetRequest } from "../../redux/actions/GetRequest";
+import { Token } from "../../constant/token";
+
+// 👇 Styled Select (same design as your Input)
+const StyledSelect = styled(Select)(({ theme }) => ({
+  width: "100%",
+
+  "& .MuiInputLabel-root": {
+    fontWeight: 500,
+    color: theme.palette.text.secondary,
+  },
+
+  "& .MuiOutlinedInput-root": {
+    borderRadius: 6,
+    backgroundColor: theme.palette.background.paper,
+    transition: "all 0.25s ease",
+  },
+
+  "& .MuiOutlinedInput-notchedOutline": {
+    borderColor: theme.palette.divider,
+    transition: "all 0.25s ease",
+  },
+
+  "&:hover .MuiOutlinedInput-notchedOutline": {
+    borderColor: theme.palette.primary.light,
+  },
+
+  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderWidth: 2,
+    borderColor: theme.palette.primary.main,
+  },
+
+  "&.Mui-focused": {
+    boxShadow: `0 0 0 4px ${theme.palette.primary.main}15`,
+  },
+
+  "& .MuiSelect-select": {
+    padding: "14px 16px",
+    fontSize: "0.95rem",
+    fontWeight: 500,
+    color: theme.palette.text.primary,
+  },
+
+  "& .Mui-disabled": {
+    backgroundColor: theme.palette.action.hover,
+  },
+}));
 
 const Brandtypetwo = ({ getvalue, label = "Select Brand" }) => {
   const dispatch = useDispatch();
-  const url = useSelector((state : any) => state.Api);
+  const url = useSelector((state) => state.Api);
 
-  const [categories, setCategories] = useState([]);
-  const [ selectcat , setSelectcat ] = useState()
+  const [brands, setBrands] = useState([]);
+  const [selectBrand, setSelectBrand] = useState("");
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchBrands = async () => {
       try {
         const res = await dispatch(GetRequest(url.GetBrand, Token));
-        setCategories(res?.data || []);
+        setBrands(res?.data || []);
       } catch (err) {
         console.log(err);
       }
     };
 
-    fetchCategories();
-  }, [dispatch, url.GetCategory]);
+    fetchBrands();
+  }, [dispatch, url.GetBrand]);
 
-
-
-  const updateState = async(e) => {
-    setSelectcat(e)
-    getvalue(e) 
-  }
+  const updateState = (value) => {
+    setSelectBrand(value);
+    getvalue(value);
+  };
 
   return (
-    <Select
-      value={selectcat || ""}
+    <StyledSelect
+      value={selectBrand}
       onChange={(e) => updateState(e.target.value)}
-      fullWidth
       displayEmpty
+      fullWidth
     >
       <MenuItem value="">{label}</MenuItem>
 
-      {categories.map((cat) => (
-        <MenuItem key={cat.id} value={String(cat.id)}>
-          {cat.name}
+      {brands.map((brand) => (
+        <MenuItem key={brand.id} value={String(brand.id)}>
+          {brand.name}
         </MenuItem>
       ))}
-    </Select>
+    </StyledSelect>
   );
-  
-}
+};
 
-Brandtypetwo.propTypes = {}
-
-export default memo(Brandtypetwo)
+export default memo(Brandtypetwo);

@@ -24,14 +24,14 @@ export const Themefunc = () => {
         },
       },
       primary: {
-        main: themedata.menucolor == '#f1f1f1' ? '#42a5f5' : themedata.menucolor,
-        light: '#42a4f548',
+        main:  '#764ba2' ,
+        light: 'rgb(25 118 210 / 9%)',
         dark: '#7a7a7a',
         contrastText: '#ffffff',
       },
       secondary: {
         main: '#42a5f5',
-        light: '#E8F7FF',
+        light: '#7551aa1c',
         dark: '#23afdb',
       },
       success: {

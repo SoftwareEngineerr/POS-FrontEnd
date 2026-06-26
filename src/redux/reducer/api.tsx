@@ -93,6 +93,9 @@ const initialState = {
     // image
     Imagelink: `${web}dashboard/createFolder`,
     ImageServer: imagesServer,
+
+
+    ProductSuggestion : `${web}dashboard/product/getSuggestions`,
         
 };
 

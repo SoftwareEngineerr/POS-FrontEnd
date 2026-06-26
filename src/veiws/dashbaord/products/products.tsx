@@ -25,17 +25,20 @@ import { Token } from "../../../constant/token";
 import { Components } from "../../../components";
 import Category from "./components/category";
 import Brand from "./components/brand";
+import { BarcodeReader, FileCopyOutlined, FolderCopyOutlined, MoneyOffCsredOutlined, NotificationAddOutlined, ProductionQuantityLimitsOutlined, SquareFootOutlined, WalletOutlined } from "@mui/icons-material";
+import { IconBoxAlignTopRightFilled } from "@tabler/icons-react";
+
 
 // Product inputs configuration
 const productInputs = [
-  { name: "productName", label: "Product Name", type: "text" },
-  { name: "barcode", label: "Barcode", type: "text" },
-  { name: "productalert", label: "Product Alert", type: "text" },
-  { name: "price", label: "Price", type: "number" },
-  { name: "quantity", label: "Quantity", type: "number" },
-  { name: "purchasePrice", label: "Purchase Price", type: "number" },
-  { name: "category", label: "Category", type: "select" }, // new field
-  { name: "brand", label: "brand", type: "select" } // new field
+  { name: "productName", label: "Product Name", type: "text" , icon: <IconBoxAlignTopRightFilled /> },
+  { name: "barcode", label: "Barcode", type: "text", icon: <BarcodeReader />},
+  { name: "productalert", label: "Product Alert", type: "text", icon: <NotificationAddOutlined /> },
+  { name: "price", label: "Price", type: "number", icon: <MoneyOffCsredOutlined /> },
+  { name: "quantity", label: "Quantity", type: "number", icon: <ProductionQuantityLimitsOutlined /> },
+  { name: "purchasePrice", label: "Purchase Price", type: "number", icon: <WalletOutlined /> },
+  { name: "category", label: "Category", type: "select", icon: <BarcodeReader /> }, // new field
+  { name: "brand", label: "brand", type: "select", icon: <BarcodeReader /> } // new field
 ];
 
 export default function ProductRegistration() {
@@ -94,14 +97,24 @@ export default function ProductRegistration() {
     reset({
       // ...getValues(),
       fields: [
-        { name: "productName", label: "Product Name", type: "text" },
-        { name: "barcode", label: "Barcode", type: "text" },
-        { name: "productalert", label: "Product Alert", type: "text" },
-        { name: "price", label: "Price", type: "number" },
-        { name: "quantity", label: "Quantity", type: "number" },
-        { name: "purchasePrice", label: "Purchase Price", type: "number" },
-        { name: "category", label: "Category", type: "select" }, // new field
-        { name: "brand", label: "brand", type: "select" }, // new field
+        // { name: "productName", label: "Product Name", type: "text" , icon: <SquareFootOutlined style={{width: "50px", height:"50px"}} /> },
+        // { name: "barcode", label: "Barcode", type: "text" },
+        // { name: "productalert", label: "Product Alert", type: "text" },
+        // { name: "price", label: "Price", type: "number" },
+        // { name: "quantity", label: "Quantity", type: "number" },
+        // { name: "purchasePrice", label: "Purchase Price", type: "number" },
+        // { name: "category", label: "Category", type: "select" }, // new field
+        // { name: "brand", label: "brand", type: "select" }, // new field
+
+        
+        { name: "productName", label: "Product Name", type: "text" , icon: <IconBoxAlignTopRightFilled /> },
+        { name: "barcode", label: "Barcode", type: "text", icon: <BarcodeReader />},
+        { name: "productalert", label: "Product Alert", type: "text", icon: <NotificationAddOutlined /> },
+        { name: "price", label: "Price", type: "number", icon: <MoneyOffCsredOutlined /> },
+        { name: "quantity", label: "Quantity", type: "number", icon: <ProductionQuantityLimitsOutlined /> },
+        { name: "purchasePrice", label: "Purchase Price", type: "number", icon: <WalletOutlined /> },
+        { name: "category", label: "Category", type: "select", icon: <BarcodeReader /> }, // new field
+        { name: "brand", label: "brand", type: "select", icon: <BarcodeReader /> } // new field
       ]
     });
   }
@@ -126,18 +139,20 @@ useEffect(() => {
 
   return (
     <Box sx={{ md: {padding: "40px"} , sm: {padding: "40px"} }}>
-      <Paper
-        elevation={4}
-        sx={{
-          padding: "30px",
-          borderRadius: "16px"
-        }}
+      <Components.CustomPaper
       >
         <Typography
           variant="h5"
-          sx={{ marginBottom: "25px", fontWeight: 700, letterSpacing: "0.5px" }}
+          sx={{  fontWeight: 700, letterSpacing: "0.5px" }}
         >
           Product Registration
+        </Typography>
+        <Typography
+        sx={{
+          marginBottom: "35px",
+        }}
+        >
+          Add new product to your inventory
         </Typography>
 
         <Grid container spacing={2}>
@@ -189,7 +204,6 @@ useEffect(() => {
                         top: "-8px",
                         left: "-8px",
                         background: Theme.primary.main,
-                        boxShadow: "0px 5px 20px rgb(66 165 245 / 59%)",
                         color: "#fff",
                         fontSize: "12px",
                         padding: "4px 12px",
@@ -221,11 +235,33 @@ useEffect(() => {
                           )
                           : null
                         }
-                          {field.type !== "select" && (
-                            <Components.Input
+                          {(field.type !== "select" &&  field.name !== "productName") && (
+                            <Components.DesignedInput
                               label={field.label}
+                              icon={field.icon}
                               type={field.type}
                               {...register(`products.${index}.${field.name}`)}
+                            />
+                          )}
+                          
+                          {field.name === "productName" && (
+                            <Components.SuggestionInput
+                              icon={field.icon}
+                              label={field.label}
+                              onChange={(val)=>{
+                                setValue(`products.${index}.productName`, val);
+                              }}
+                              onSelect={(item) => {
+                                setValue(`products.${index}.productName`, item.name);
+                                setValue(`products.${index}.barcode`, item.barcode);
+                                setValue(`products.${index}.productalert`, item.product_alert);
+                                setValue(`products.${index}.price`, item.price);
+                                setValue(`products.${index}.quantity`, item.quantity);
+                                setValue(`products.${index}.purchasePrice`, item.cost_price);
+                                setValue(`products.${index}.category`, item.category.id);
+                                setValue(`products.${index}.brand`, item.brand.id);
+                                setValue(`products.${index}.image`, item.image_url);
+                              }}
                             />
                           )}
                         </Grid>
@@ -286,7 +322,7 @@ useEffect(() => {
                     variant="outlined"
                     startIcon={<AddCircleOutlineIcon />}
                     onClick={() => append({})}
-                    sx={{ borderRadius: "10px", padding: "8px 18px" , width:"100%" }}
+                    sx={{ borderRadius: "10px", padding: "16px 24px", width:"100%" }}
                   >
                     Add Product
                   </Button>
@@ -299,7 +335,7 @@ useEffect(() => {
                 xs: 6
               }}>
                 <motion.div whileHover={{ scale: 1.05 }}>
-                  <Components.CustomBtn variant="contained" type="submit" data="Save Products" />
+                  <Components.CustomBtn variant="contained" type="submit" icon={<FolderCopyOutlined style={{marginRight: "5px", fontSize: "18px"}} />} data="Save Products" />
                 </motion.div>
               </Grid>
               <Grid size={{
@@ -374,7 +410,7 @@ useEffect(() => {
 
           {/* </Box> */}
         </form>
-      </Paper>
+      </Components.CustomPaper>
     </Box>
   );
 }

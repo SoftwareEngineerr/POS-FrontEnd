@@ -11,12 +11,12 @@ const SellProducts: React.FC = () => {
     <Box display="flex" height="100vh">
       
       {/* LEFT */}
-      <Box width="75%">
+      <Box width="73%">
         <ProductList cart={cart} setCart={setCart} />
       </Box>
 
       {/* RIGHT */}
-      <Box width="25%">
+      <Box width="27%">
         <BillSection cart={cart} setCart={setCart} />
       </Box>
 

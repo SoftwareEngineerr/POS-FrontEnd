@@ -83,15 +83,7 @@ const CustomerReturn = () => {
   };
 
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        p: 3,
-        borderRadius: "18px",
-        background: "linear-gradient(135deg, #f9fafb, #ffffff)",
-        minHeight: "85vh",
-      }}
-    >
+    <Components.CustomPaper>
       {/* HEADER */}
       <Stack direction="row" justifyContent="space-between" mb={2}>
         <Box>
@@ -284,7 +276,7 @@ const CustomerReturn = () => {
             </Button>
     
         </Box>
-    </Paper>
+    </Components.CustomPaper>
   );
 };
 

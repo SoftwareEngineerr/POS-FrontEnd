@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import { styled } from "@mui/material/styles";
-import { TextField } from "@mui/material";
+import { styled, useTheme } from "@mui/material/styles";
+import { Box, TextField } from "@mui/material";
 
 const StyledInput = styled(TextField)(({ theme }) => ({
   width: "100%",
@@ -8,6 +8,7 @@ const StyledInput = styled(TextField)(({ theme }) => ({
   "& .MuiInputLabel-root": {
     fontWeight: 500,
     color: theme.palette.text.secondary,
+    paddingLeft : '50px',
   },
 
   "& .MuiInputLabel-root.Mui-focused": {
@@ -42,6 +43,7 @@ const StyledInput = styled(TextField)(({ theme }) => ({
     padding: "14px 16px",
     fontSize: "0.95rem",
     fontWeight: 500,
+    paddingLeft : '55px',
 
     "&::placeholder": {
       color: theme.palette.text.secondary,
@@ -58,4 +60,44 @@ const StyledInput = styled(TextField)(({ theme }) => ({
   },
 }));
 
-export const Input = memo(StyledInput);
+export const DesignedInput = memo((props) =>{
+  const icon = props.icon
+  const theme = useTheme().palette
+  const styledIcon = icon
+  ? React.cloneElement(icon, {
+      style: {
+        color : theme.primary.main,
+        fontSize: "20px",
+        height: "27px",
+        ...icon.props.style
+      }
+    })
+  : null;
+  // console.log(props)
+  return (
+    <Box sx={{
+      position: "relative",
+        display: "flex",
+        alignItems: "center"
+    }}>
+      
+      <Box sx={{
+        background: theme.secondary.light,
+        width: "40px",
+        height: "40px",
+        marginLeft: "10px",
+        borderRadius: "7px",
+        position: "absolute",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1,
+      }}>
+        {styledIcon}
+      </Box>
+      <StyledInput {...props} />
+    </Box>
+  )
+})
+
+//  = memo(func);
