@@ -13,7 +13,7 @@ const SidebarItems = () => {
   const style = useTheme().palette.sidemenutext;
   const pathDirect = pathname;
   const dispatch = useDispatch();
-  const [items , setItems ] = useState(Menuitems());
+  const items= Menuitems();
 
 
   const makeseconds = Math.random();
@@ -28,7 +28,7 @@ const SidebarItems = () => {
   }
   useEffect(()=>{
     myfunc()
-  })
+  },[])
 
   return (
     <Box pl={1} pr={2}>

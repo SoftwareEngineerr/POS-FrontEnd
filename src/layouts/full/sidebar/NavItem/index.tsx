@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { NavLink, useLocation, useRoutes } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useRoutes } from "react-router-dom";
 import {
   ListItemIcon,
   ListItem,
@@ -16,8 +16,9 @@ const NavItem = ({ item, level, pathDirect, onClick }) => {
   const theme = useTheme();
   const currenturl = useLocation()
   const navchecker = currenturl.pathname == item.href
+  const navigate = useNavigate();
 
-  console.log()
+
 
   const ListItemStyled = styled(ListItem)(({ theme }) => ({
     // borderRadius: "12px",
@@ -62,13 +63,20 @@ const NavItem = ({ item, level, pathDirect, onClick }) => {
       }}
     >
       
+      
         <ListItemStyled
-          component={NavLink}
-          to={item.href}
-          // href={item.external ? item.href : ""}
-          selected={pathDirect === item.href}
-          // target={item.external ? "_blank" : ""}
-          onClick={onClick}
+          // component={NavLink}
+          // to={item.href}
+          // // href={item.external ? item.href : ""}
+          // selected={pathDirect === item.href}
+          // // target={item.external ? "_blank" : ""}
+          // onClick={onClick}
+
+            onClick={() => {
+              navigate(item.href);
+              // onClick?.();
+            }}
+
         >
           {/* 🔥 ICON */}
           <ListItemIcon

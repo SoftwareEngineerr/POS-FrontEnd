@@ -1,57 +1,40 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Paper,
-  Typography,
-  Button,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  MenuItem,
-  Switch,
-  FormControlLabel,
-  Divider
-} from "@mui/material";
-import { PostRequest } from "../../../redux/actions/PostRequest";
-import { GetRequest } from "../../../redux/actions/GetRequest";
+import { Box, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { Components } from "../../../components";
+import { GetRequest } from "../../../redux/actions/GetRequest";
+import { PostRequest } from "../../../redux/actions/PostRequest";
 import { Token } from "../../../constant/token";
 
+import ExpenseHeader from "./Header/ExpenseHeader";
+import ExpenseFilter from "./Filter/ExpenseFilter";
+import ExpenseTable from "./Table/ExpenseTable";
+import AddExpenseDialog from "./Dialog/AddExpenseDialog";
+import { CategoryOutlined, MoneyOutlined, ReceiptOutlined, TrendingUpOutlined, WalletOutlined } from "@mui/icons-material";
+import { Components } from "../../../components";
+
 const ExpensePage = () => {
+  const dispatch = useDispatch();
+  const geturl = useSelector((state) => state.Api);
 
   const [expenses, setExpenses] = useState([]);
-
   const [open, setOpen] = useState(false);
 
-  // 🔥 FILTER STATE
   const [useDateFilter, setUseDateFilter] = useState(false);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-  const dispatch = useDispatch();
-  const geturl = useSelector((state)=>state.Api)
 
-  // ➕ FORM STATE
   const [form, setForm] = useState({
     amount: "",
     category: "Rent",
     description: ""
   });
 
-  // 📡 LOAD EXPENSES
   const fetchExpenses = async () => {
     const url = useDateFilter
       ? `${geturl.GetExpense}?from=${fromDate}&to=${toDate}`
       : `${geturl.GetExpense}`;
 
-    const res = await dispatch(GetRequest(url , Token));
+    const res = await dispatch(GetRequest(url, Token));
     setExpenses(res.data || []);
   };
 
@@ -59,284 +42,85 @@ const ExpensePage = () => {
     fetchExpenses();
   }, [useDateFilter]);
 
-  // ➕ ADD EXPENSE
   const handleSubmit = async () => {
-    if (!form.amount) return;
+    await dispatch(PostRequest(geturl.AddExpense, Token, form));
 
-    await dispatch(PostRequest(`${geturl.AddExpense}` , Token , form));
-
-    setForm({
-      amount: "",
-      category: "Rent",
-      description: ""
-    });
-
+    setForm({ amount: "", category: "Rent", description: "" });
     setOpen(false);
     fetchExpenses();
   };
 
-  // 💰 TOTAL
-  const total = expenses.reduce(
-    (sum, e) => sum + Number(e.amount),
-    0
-  );
+  const total = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
+
+
+  const dailyAvg = total / 7 || 0;
+
+  const topCategory =
+    expenses.reduce((acc, curr) => {
+      acc[curr.category] = (acc[curr.category] || 0) + Number(curr.amount);
+      return acc;
+    }, {});
+
+  const top = Object.entries(topCategory).sort((a, b) => b[1] - a[1])[0];
+
+
+  const data = [
+        { label: "Total Expense", value: total, color: "primary" , icon: <MoneyOutlined /> },
+        { label: "Daily Average", value: (dailyAvg.toFixed(2)), color: "warning"  ,icon: <TrendingUpOutlined />},
+        { label: "Total Transactions", value: (expenses.length), color: "info"  ,icon: <ReceiptOutlined />},
+        { label: "Top Category", value: (top?.[0] || "-"), color: "success"  ,icon: <CategoryOutlined />},
+  ]
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Components.CustomPaper sx={{ p: 3 }}>
 
-      {/* HEADER */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          mb: 2
-        }}
-      >
-        <Typography variant="h5" fontWeight={700}>
-          Expense Management
-        </Typography>
+      <ExpenseHeader onAdd={() => setOpen(true)} />
 
-        {/* <Button
-          variant="contained"
-          color="error"
-          onClick={() => setOpen(true)}
-        >
-          Add Expense
-        </Button> */}
-        <Components.CustomBtn
-          click={() => setOpen(true)}
-          data="Add Expense"
-          style={{
-            maxWidth: "200px"
-          }}
-        />
-      </Box>
-
-      {/* FILTER BAR */}
-      <Paper sx={{ p: 2, mb: 2, borderRadius: 2 }}>
-
-        <FormControlLabel
-          control={
-            <Switch
-              checked={useDateFilter}
-              onChange={(e) => setUseDateFilter(e.target.checked)}
-            />
-          }
-          label="Filter by Date"
-        />
-
-        {useDateFilter && (
-          <Box sx={{ display: "flex",
-          alignItems: "center",
-          gap: 2, mt: 2 }}>
-
-            <Components.CustomDateRange
-                fromDate={fromDate}
-                toDate={toDate}
-                setFromDate={setFromDate}
-                setToDate={setToDate}
-            />
-
-            <Components.CustomBtn
-              data="Apply"
-              style={{
-                maxWidth: "200px",
-                height: "fit-content"
-              }}
-              click={fetchExpenses}
-            />
-
-          </Box>
-        )}
-
-      </Paper>
+      <ExpenseFilter
+        useDateFilter={useDateFilter}
+        setUseDateFilter={setUseDateFilter}
+        fromDate={fromDate}
+        toDate={toDate}
+        setFromDate={setFromDate}
+        setToDate={setToDate}
+        onApply={fetchExpenses}
+      />
 
 
-    {/* TOTAL CARD */}
-    <Paper
-      sx={{
-        p: 3,
-        mb: 3,
-        borderRadius: 3,
-        background: "linear-gradient(135deg,#0f172a,#1e293b)",
-        color: "white",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
-      }}
-    >
-      <Box>
-        <Typography sx={{ opacity: 0.7 }}>Total Expense</Typography>
-        <Typography fontSize={26} fontWeight={700}>
-          {total}
-        </Typography>
-      </Box>
-
-      <Typography sx={{ opacity: 0.5 }}>
-        Last 7 days
-      </Typography>
-    </Paper>
-
-    {/* TABLE CARD */}
-    <Paper sx={{ borderRadius: 3, overflow: "hidden" }}>
-
-      <Table>
-
-        <TableHead>
-          <TableRow sx={{ background: "#f1f5f9" }}>
-            <TableCell>Category</TableCell>
-            <TableCell>Amount</TableCell>
-            <TableCell>Description</TableCell>
-            <TableCell>Date</TableCell>
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {expenses.map((e, i) => (
-            <TableRow
-              key={i}
-              hover
-              sx={{
-                transition: "0.2s",
-                "&:hover": {
-                  backgroundColor: "#f9fafb"
-                }
-              }}
-            >
-
-              {/* CATEGORY */}
-              <TableCell>
-                <Box
-                  sx={{
-                    px: 2,
-                    py: 0.5,
-                    borderRadius: 2,
-                    fontSize: 12,
-                    fontWeight: 600,
-                    background:
-                      e.category === "Rent"
-                        ? "#dbeafe"
-                        : e.category === "Bills"
-                        ? "#fee2e2"
-                        : "#e5e7eb",
-                    color:
-                      e.category === "Rent"
-                        ? "#1d4ed8"
-                        : e.category === "Bills"
-                        ? "#dc2626"
-                        : "#374151"
-                  }}
-                >
-                  {e.category}
-                </Box>
-              </TableCell>
-
-              {/* AMOUNT */}
-              <TableCell
-                sx={{
-                  color: "#ef4444",
-                  fontWeight: 700
+      <Grid container spacing={2} mb={3}>
+        {
+          data.map((card, i) => (
+            <Grid
+                size={{
+                    md: 3,
+                    xs: 12,
                 }}
-              >
-                {e.amount}
-              </TableCell>
-
-              {/* DESCRIPTION */}
-              <TableCell sx={{ color: "#475569" }}>
-                {e.description}
-              </TableCell>
-
-              {/* DATE */}
-              <TableCell sx={{ color: "#64748b" }}>
-                {new Date(e.Date).toLocaleDateString()}
-              </TableCell>
-
-            </TableRow>
+            key={i}>
+              <Components.CustomCard 
+                title={card.label}
+                value={card.value}
+                icon={card.icon}
+                color={card.color}
+              />
+            </Grid>
           ))}
-        </TableBody>
+        </Grid>
+      {/* <SummaryCards
+        total={total}
+        expenses={expenses}
+      /> */}
 
-      </Table>
+      <ExpenseTable expenses={expenses} />
 
-      {/* EMPTY STATE */}
-      {expenses.length === 0 && (
-        <Box
-          sx={{
-            p: 4,
-            textAlign: "center",
-            color: "#94a3b8"
-          }}
-        >
-          No expenses found
-        </Box>
-      )}
+      <AddExpenseDialog
+        open={open}
+        setOpen={setOpen}
+        form={form}
+        setForm={setForm}
+        onSave={handleSubmit}
+      />
 
-    </Paper>
-      {/* ADD EXPENSE MODAL */}
-      <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="xs">
-
-        <DialogTitle>Add Expense</DialogTitle>
-
-        <DialogContent>
-          <TextField
-            fullWidth
-            select
-            label="Category"
-            sx={{ mb: 2 }}
-            value={form.category}
-            onChange={(e) =>
-              setForm({ ...form, category: e.target.value })
-            }
-          >
-            <MenuItem value="Rent">Rent</MenuItem>
-            <MenuItem value="Bills">Bills</MenuItem>
-            <MenuItem value="Others">Others</MenuItem>
-          </TextField>
-
-          <TextField
-            fullWidth
-            label="Amount"
-            type="number"
-            sx={{ mb: 2 }}
-            value={form.amount}
-            onChange={(e) =>
-              setForm({ ...form, amount: e.target.value })
-            }
-          />
-
-          <TextField
-            fullWidth
-            label="Description"
-            multiline
-            rows={3}
-            value={form.description}
-            onChange={(e) =>
-              setForm({ ...form, description: e.target.value })
-            }
-          />
-
-        </DialogContent>
-
-        <Divider />
-
-        <DialogActions>
-          <Button onClick={() => setOpen(false)}
-                sx={{
-                    width:"100%"
-                }}
-            >Cancel</Button>
-
-          <Components.CustomBtn
-            click={handleSubmit}
-            data="Save"
-            style={{
-                maxWidth: "50%"
-            }}
-          />
-        </DialogActions>
-
-      </Dialog>
-
-    </Box>
+    </Components.CustomPaper>
   );
 };
 

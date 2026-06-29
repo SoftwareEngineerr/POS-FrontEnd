@@ -18,6 +18,8 @@ import {
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { StaticDatePicker } from "@mui/x-date-pickers";
+import { Components } from "../../../components";
+import { MoneyOutlined } from "@mui/icons-material";
 
 const Roznamcha = () => {
   const [payments, setPayments] = useState([]);
@@ -52,13 +54,21 @@ const Roznamcha = () => {
   const totalOut = payments.reduce((a, b) => a + (b.amount_out || 0), 0);
   const finalBalance = balancetotalIn - totalOut + (summary.balance || 0);
 return (
-  <Box
+  <Components.CustomPaper
     sx={{
       minHeight: "100vh",
       p: 3,
     //   background: "linear-gradient(180deg, #f6f8fc 0%, #eef2f7 100%)",
     }}
   >
+    
+    <Typography fontSize="20px" fontWeight={700}>
+      💰 Daily Cash
+    </Typography>
+    <Typography>
+      Daily cash flow overview 
+    </Typography>
+    <br />
     <Grid container spacing={3}>
       
       {/* LEFT - DATE */}
@@ -110,9 +120,9 @@ return (
         {/* SUMMARY CARDS */}
         <Grid container spacing={2} mb={3}>
           {[
-            { label: "Income", value: totalIn, color: "#00C853" },
-            { label: "Expense", value: totalOut, color: "#D50000" },
-            { label: "Balance", value: finalBalance, color: "#2962FF" },
+            { label: "Income", value: totalIn, color: "primary" , icon: <MoneyOutlined /> },
+            { label: "Expense", value: totalOut, color: "warning"  ,icon: <MoneyOutlined />},
+            { label: "Balance", value: finalBalance, color: "info"  ,icon: <MoneyOutlined />},
           ].map((card, i) => (
             <Grid
                 size={{
@@ -120,48 +130,12 @@ return (
                     xs: 12,
                 }}
             key={i}>
-              <Box
-                sx={{
-                  p: 3,
-                  borderRadius: 4,
-                  color: "white",
-                  position: "relative",
-                  overflow: "hidden",
-                  background: `linear-gradient(135deg, ${card.color}, ${card.color}cc)`,
-                  boxShadow: "0 15px 35px rgba(0,0,0,0.12)",
-                  transition: "all 0.25s ease",
-                  "&:hover": {
-                    transform: "translateY(-6px) scale(1.02)",
-                  },
-                }}
-              >
-                <Typography sx={{ opacity: 0.85, fontSize: 13 }}>
-                  {card.label}
-                </Typography>
-
-                <Typography
-                  sx={{
-                    fontSize: 28,
-                    fontWeight: 800,
-                    mt: 1,
-                  }}
-                >
-                  {card.value.toFixed(2)}
-                </Typography>
-
-                {/* soft glow effect */}
-                <Box
-                  sx={{
-                    position: "absolute",
-                    width: 120,
-                    height: 120,
-                    borderRadius: "50%",
-                    background: "rgba(255,255,255,0.15)",
-                    top: -30,
-                    right: -30,
-                  }}
-                />
-              </Box>
+              <Components.CustomCard 
+                title={card.label}
+                value={card.value}
+                icon={card.icon}
+                color={card.color}
+              />
             </Grid>
           ))}
         </Grid>
@@ -273,7 +247,7 @@ return (
 
       </Grid>
     </Grid>
-  </Box>
+  </Components.CustomPaper>
 );
 };
 

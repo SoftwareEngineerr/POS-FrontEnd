@@ -74,7 +74,7 @@ const EmployeeList = () => {
   };
 
   return (
-    <Paper
+    <Components.CustomPaper
       elevation={0}
       sx={{
         p: 3,
@@ -265,7 +265,7 @@ const EmployeeList = () => {
         </DialogActions>
       </Dialog>
 
-    </Paper>
+    </Components.CustomPaper>
   );
 };
 

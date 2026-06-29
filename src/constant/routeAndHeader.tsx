@@ -18,6 +18,7 @@ import { Suspense } from "react";
 import InvestmentPage from "../veiws/dashbaord/invest/invest";
 import DivestmentPage from "../veiws/dashbaord/DivestPage/DivestPage";
 import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
+import Finance from "../veiws/dashbaord/Finance";
   // //console.log(SelectedData())
   export const RouteHeader = () => { 
   return {
@@ -250,9 +251,11 @@ import Roznamcha from "../veiws/dashbaord/roznamcha/roznamcha";
                         </Box>
                       ),
                       icon: CurrencyExchangeSharp,
-                      href: '/Private/return',
-                      path: '/Private/return',
-                      element: <div id="Refund"><Suspense><ProductEdit /></Suspense></div>
+                      href: '/Private/finance',
+                      path: '/Private/finance',
+                      element: <div id="Refund"><Suspense>
+                          <Finance />
+                        </Suspense></div>
                     },
                     {
                       item: true,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { styled, Container, Box } from '@mui/material';
+import { styled, Container, Box, useTheme } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 
@@ -32,6 +32,7 @@ const FullLayout = () => {
   const dispatch = useDispatch()
   const [shouldReload, setShouldReload] = useState(false);
   const ReloadedData = sessionStorage.getItem('reloaded');
+  const theme = useTheme().palette
 
   useEffect(() => {
 
@@ -97,7 +98,7 @@ function myfunc (){
           {/* ------------------------------------------- */}
           {/* Page Route */}
           {/* ------------------------------------------- */}
-          <Box id='test1' sx={{ minHeight: 'calc(100vh - 170px)' }}>
+          <Box id='test1' sx={{ minHeight: 'calc(100vh - 170px)'  }}>
 {/*           
             {
               checker

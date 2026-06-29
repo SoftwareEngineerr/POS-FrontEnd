@@ -15,6 +15,7 @@ import CustomPaper from "./paper";
 import { SuggestionInput } from "./productSuggestion";
 import Showimage from "./showimage/showimage";
 import Supplier from "./supplier/supplier";
+import CustomCard from './cards/index'
 
 export const Components = {
     CustomBtn,
@@ -32,5 +33,6 @@ export const Components = {
     Brand,
     Brandtypetwo,
     CustomPaper,
-    SuggestionInput
+    SuggestionInput,
+    CustomCard
 }

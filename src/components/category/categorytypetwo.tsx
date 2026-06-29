@@ -1,13 +1,17 @@
 import React, { memo, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
-import { MenuItem, Select } from "@mui/material";
+import { Box, MenuItem, Select , useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../redux/actions/GetRequest";
 import { Token } from "../../constant/token";
+import { CategoryOutlined } from "@mui/icons-material";
 
 // 👇 Styled Select (same idea as your TextField)
 const StyledSelect = styled(Select)(({ theme }) => ({
   width: "100%",
+  paddingLeft: "50px",
+  position: "relative",
+                
 
   "& .MuiSelect-select": {
     padding: "14px 16px",
@@ -46,6 +50,7 @@ const Categorytypetwo = ({ getvalue, label = "Select Category" }) => {
 
   const [categories, setCategories] = useState([]);
   const [selectcat, setSelectcat] = useState("");
+  const theme = useTheme().palette
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -66,6 +71,30 @@ const Categorytypetwo = ({ getvalue, label = "Select Category" }) => {
   };
 
   return (
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center"
+      }}
+    >
+      
+        <Box sx={{
+          background: theme.secondary.light,
+          width: "40px",
+          height: "40px",
+          marginLeft: "10px",
+          borderRadius: "7px",
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}>
+          <CategoryOutlined style={{
+            color : theme.primary.main,
+            fontSize: "20px",
+            height: "27px"
+          }} />
+        </Box>
     <StyledSelect
       value={selectcat}
       onChange={(e) => updateState(e.target.value)}
@@ -80,6 +109,7 @@ const Categorytypetwo = ({ getvalue, label = "Select Category" }) => {
         </MenuItem>
       ))}
     </StyledSelect>
+    </Box>
   );
 };
 

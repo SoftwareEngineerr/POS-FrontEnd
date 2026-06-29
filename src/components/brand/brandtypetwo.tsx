@@ -1,13 +1,17 @@
 import React, { memo, useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
-import { MenuItem, Select } from "@mui/material";
+import { styled, useTheme } from "@mui/material/styles";
+import { Box, MenuItem, Select } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../redux/actions/GetRequest";
 import { Token } from "../../constant/token";
+import { BrandingWatermarkOutlined } from "@mui/icons-material";
 
 // 👇 Styled Select (same design as your Input)
 const StyledSelect = styled(Select)(({ theme }) => ({
   width: "100%",
+  paddingLeft: "50px",
+  position: "relative",
+                
 
   "& .MuiInputLabel-root": {
     fontWeight: 500,
@@ -74,8 +78,33 @@ const Brandtypetwo = ({ getvalue, label = "Select Brand" }) => {
     setSelectBrand(value);
     getvalue(value);
   };
+  const theme = useTheme().palette
 
   return (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center"
+          }}
+        >
+          
+            <Box sx={{
+              background: theme.secondary.light,
+              width: "40px",
+              height: "40px",
+              marginLeft: "10px",
+              borderRadius: "7px",
+              position: "absolute",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}>
+              <BrandingWatermarkOutlined style={{
+                color : theme.primary.main,
+                fontSize: "20px",
+                height: "27px"
+              }} />
+            </Box>
     <StyledSelect
       value={selectBrand}
       onChange={(e) => updateState(e.target.value)}
@@ -90,6 +119,7 @@ const Brandtypetwo = ({ getvalue, label = "Select Brand" }) => {
         </MenuItem>
       ))}
     </StyledSelect>
+    </Box>
   );
 };
 

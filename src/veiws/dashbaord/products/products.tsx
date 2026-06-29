@@ -97,15 +97,6 @@ export default function ProductRegistration() {
     reset({
       // ...getValues(),
       fields: [
-        // { name: "productName", label: "Product Name", type: "text" , icon: <SquareFootOutlined style={{width: "50px", height:"50px"}} /> },
-        // { name: "barcode", label: "Barcode", type: "text" },
-        // { name: "productalert", label: "Product Alert", type: "text" },
-        // { name: "price", label: "Price", type: "number" },
-        // { name: "quantity", label: "Quantity", type: "number" },
-        // { name: "purchasePrice", label: "Purchase Price", type: "number" },
-        // { name: "category", label: "Category", type: "select" }, // new field
-        // { name: "brand", label: "brand", type: "select" }, // new field
-
         
         { name: "productName", label: "Product Name", type: "text" , icon: <IconBoxAlignTopRightFilled /> },
         { name: "barcode", label: "Barcode", type: "text", icon: <BarcodeReader />},
@@ -277,6 +268,7 @@ useEffect(() => {
                               GetSelectedValue={(val : any) => {
                                 field.onChange(val[0]);
                               }}
+                              defaultImage={`products.${index}.image`}
                             />
                           )}
                         />

@@ -96,6 +96,13 @@ const initialState = {
 
 
     ProductSuggestion : `${web}dashboard/product/getSuggestions`,
+
+
+    //finance
+
+    FinanceCard: `${web}dashboard/finance/card`,
+    CashFlow: `${web}dashboard/finance/cash`,
+    TopProducts: `${web}dashboard/finance/topProducts`
         
 };
 

@@ -15,7 +15,7 @@ export const Fileimage = (props : any) => {
   const [link, setLink] = useState();
   const url = useSelector((state : any) => state.Api.Imagelink);
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [previewImages, setPreviewImages] = useState([]);
+  const [previewImages, setPreviewImages] = useState([`${url}/props.defaultImage`]);
   const [butnVisiablity, setButnVisiablity] = useState(true);
   const [imageName, setImageName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -32,6 +32,9 @@ export const Fileimage = (props : any) => {
     }
     return null;
   };
+  useEffect(()=>{
+    setPreviewImages([`${url}${props.defaultImage}`])
+  },[props.defaultImage])
 
   const handleFileChange = async (event) => {
     setErrorMessage(''); // Reset error message
@@ -201,11 +204,6 @@ const handleUpload = async (getparam) => {
               <input type="text" name={props.name} id="demo" value={imageName} onChange={dummyOnchange} required={props.required} />
             </Box>
           </Box>
-          {WebSrn == 12 ? 
-              <span style={{color:'red'}}>تصویر باید زیر ۳ ایم بی باشد</span>
-              :
-              <span style={{color:'red'}}>انځور باید د ۳ ایم بي څخه کم وي</span>
-          }
 
         </Grid>
         <Grid item lg={4}>

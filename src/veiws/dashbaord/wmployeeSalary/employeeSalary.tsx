@@ -102,14 +102,7 @@ const loadSalary = async (employee_id, force = false) => {
   }
 
   return (
-        <Paper
-              elevation={0}
-              sx={{
-                p: 3,
-                borderRadius: 4,
-                background: "linear-gradient(180deg,#ffffff,#f8fafc)",
-              }}
-            >
+        <Components.CustomPaper>
 
       <Typography fontSize="20px" fontWeight={700}>
         💰 Employee Salary History
@@ -299,7 +292,7 @@ const loadSalary = async (employee_id, force = false) => {
 
         );
       })}
-    </Paper>
+    </Components.CustomPaper>
   );
 };
 

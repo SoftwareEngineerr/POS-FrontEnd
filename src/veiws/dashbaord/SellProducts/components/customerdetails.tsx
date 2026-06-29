@@ -9,6 +9,7 @@ import {
   Select,
   MenuItem,
   Grid,
+  useTheme,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { PostRequest } from "../../../../redux/actions/PostRequest";
@@ -16,13 +17,15 @@ import { Token } from "../../../../constant/token";
 import { GetRequest } from "../../../../redux/actions/GetRequest";
 import { Components } from "../../../../components";
 import ShowModal from "../../../../redux/reducer/showmodal";
+import { CategoryOutlined } from "@mui/icons-material";
 
 const CustomerModal = (props) => {
 const [customers, setCustomers] = useState<any[]>([]);
 const [customerId, setCustomerId] = useState("-1");
 const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
-  const url = useSelector((state: any) => state.Api);
+const dispatch = useDispatch();
+const url = useSelector((state: any) => state.Api);
+const theme = useTheme().palette
 
   const [form, setForm] = useState({
     name: "",
@@ -82,11 +85,42 @@ useEffect(()=>{
         </Typography>
         <Grid container spacing={1} >
             <Grid  size={{xs:8,md:8}}>
+
+            <Box
+                sx={{
+                    display: "flex",
+                    alignItems: "center"
+                }}
+                >
+                
+                    <Box sx={{
+                    background: theme.secondary.light,
+                    width: "40px",
+                    height: "40px",
+                    marginLeft: "10px",
+                    borderRadius: "7px",
+                    position: "absolute",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                    }}>
+                    <CategoryOutlined style={{
+                        color : theme.primary.main,
+                        fontSize: "20px",
+                        height: "27px"
+                    }} />
+                    </Box>
+            
                 <Select
                     fullWidth
                     size="small"
                     value={customerId}
                     onChange={(e) => setCustomerId(e.target.value)}
+                    sx={{
+                    padding: "6px",
+                    paddingLeft: "50px",
+                    position: "relative",
+                    }}
                 >
                     <MenuItem value="-1">
                     Walk-in Customer
@@ -98,6 +132,7 @@ useEffect(()=>{
                     </MenuItem>
                     ))}
                 </Select>
+                </Box>
             </Grid>
             <Grid  size={{xs:4,md:4}}>
                 {/* ADD BUTTON */}
