@@ -57,6 +57,16 @@ const SummaryCards = (props : any) => {
                 color: "warning",
                 icon: <MoneyOutlined />,
             },
+              {
+                id: 5,
+                title: "Total Returns",
+                value: res.data.totalReturns,
+                percentage: 3.4,
+                trend: "up",
+                color: "primary",
+                icon: <PaymentsRoundedIcon />,
+            },
+        
 
             {
                 id: 2,
@@ -85,16 +95,8 @@ const SummaryCards = (props : any) => {
                 color: "primary",
                 icon: <TrendingUpOutlined />,
             },
-            {
-                id: 5,
-                title: "Cash In Hand",
-                value: "$5,340",
-                percentage: 3.4,
-                trend: "up",
-                color: "primary",
-                icon: <PaymentsRoundedIcon />,
-            },
-        ])
+            ])
+          
     }
     useEffect(()=>{
         myfunc()

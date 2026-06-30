@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
     ResponsiveContainer,
@@ -12,29 +12,95 @@ import {
 import { useTheme } from "@mui/material";
 
 import ChartCard from "./ChartCard";
+import { useDispatch, useSelector } from "react-redux";
+import { GetRequest } from "../../../../redux/actions/GetRequest";
+import { Token } from "../../../../constant/token";
 
-const data = [
-    { name: "Salary", value: 35 },
-    { name: "Rent", value: 20 },
-    { name: "Marketing", value: 15 },
-    { name: "Electricity", value: 10 },
-    { name: "Transport", value: 10 },
-    { name: "Other", value: 10 },
-];
-
+// const data = [
+//     { name: "Salary", value: 35 },
+//     { name: "Rent", value: 20 },
+//     { name: "Marketing", value: 15 },
+//     { name: "Electricity", value: 10 },
+//     { name: "Transport", value: 10 },
+//     { name: "Other", value: 10 },
+// ];
 const COLORS = [
-    "#8B5CF6",
-    "#EC4899",
-    "#38BDF8",
-    "#FDBA74",
-    "#FCA5A5",
-    "#E5E7EB",
+  "#8B5CF6",
+  "#EC4899",
+  "#38BDF8",
+  "#FDBA74",
+  "#FCA5A5",
+  "#E5E7EB",
+  "#22C55E",
+  "#F97316",
+  "#3B82F6",
+  "#A855F7",
+  "#EF4444",
+  "#14B8A6",
+  "#FACC15",
+  "#0EA5E9",
+  "#6366F1",
+  "#10B981",
+  "#FB7185",
+  "#F59E0B",
+  "#84CC16",
+  "#06B6D4",
+  "#9333EA",
+  "#DB2777",
+  "#2563EB",
+  "#4ADE80",
+  "#F43F5E",
+  "#EAB308",
+  "#0F172A",
+  "#334155",
+  "#64748B",
+  "#94A3B8",
+  "#C084FC",
+  "#F472B6",
+  "#2DD4BF",
+  "#60A5FA",
+  "#FCD34D",
+  "#FB923C",
+  "#A3E635",
+  "#7C3AED",
+  "#FB7185",
+  "#22D3EE",
+  "#D946EF"
 ];
 
-const TOTAL = "$8,430";
 
-const ExpenseChart = () => {
-    const theme = useTheme();
+const ExpenseChart = (props) => {
+    const theme = useTheme()
+    const url = useSelector((state)=>state.Api.GetExpenseChart)
+    const dispatch = useDispatch()
+    const [data , setData ] = useState([])
+    const [total  , setTotal ] = useState()
+
+    const myfunc = async()=> {
+        const params = new URLSearchParams({
+            from: props.fromDate,
+            to: props.toDate
+        });
+
+        const res = await dispatch(
+            GetRequest(
+                `${url}?${params.toString()}`,
+                Token,
+                "type"
+            ) 
+        );
+        setData(res.data)
+        const gettotal = res.data.reduce((acc , crr)=>{
+            acc += crr.value
+            return acc
+        },0)
+        setTotal(gettotal)
+    }
+    useEffect(()=>{
+            myfunc()
+        },[props.fromDate , props.toDate , props])
+        
+    
 
     return (
         <ChartCard title="Expense Breakdown">
@@ -78,11 +144,21 @@ const ExpenseChart = () => {
                         fontSize="24"
                         fontWeight="700"
                     >
-                        {TOTAL}
+                        {
+                            total
+                        }
                     </text>
 
                     <Tooltip
-                        formatter={(value) => [`${value}%`, "Expense"]}
+                        // formatter={(value , ) => [`${value}`, "Expense"]}
+                        formatter={(value, entry) => {
+                            const item = data.find(
+                                (d) => d.value === value
+                            );
+                            console.log(data , value , item)
+                            return [`${value}`, item?.name]
+
+                        }}
                         contentStyle={{
                             border: "none",
                             borderRadius: 12,
@@ -111,7 +187,7 @@ const ExpenseChart = () => {
                                         width: 110,
                                     }}
                                 >
-                                    {value}
+                                    {value} :
                                     <span
                                         style={{
                                             float: "right",
@@ -120,7 +196,7 @@ const ExpenseChart = () => {
                                             fontWeight: 600,
                                         }}
                                     >
-                                        {item?.value}%
+                                        {item?.value}
                                     </span>
                                 </span>
                             );

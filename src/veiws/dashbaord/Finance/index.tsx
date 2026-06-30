@@ -17,22 +17,22 @@ import EmployeeSalaryTable from "./Tables/EmployeeSalaryTable";
 import RecentTransactionsTable from "./Tables/RecentTransactionsTable";
 
 const Finance = () => {
-    const [filter, setFilter] = React.useState("This Month");
-    const [fromDate, setFromDate] = React.useState("");
-    const [toDate, setToDate] = React.useState("");
+    const [filter, setFilter] = React.useState("Today");
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+    
+        return `${year}-${month}-${day}`;
+    };
+    const getNextDate = (date) => {
+        const next = new Date(date);
+        next.setDate(next.getDate() + 1);
+        return next;
+    };
+    const [fromDate, setFromDate] = React.useState(formatDate(new Date()));
+    const [toDate, setToDate] = React.useState(formatDate(getNextDate(new Date())));
 
-const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
-};
-const getNextDate = (date) => {
-    const next = new Date(date);
-    next.setDate(next.getDate() + 1);
-    return next;
-};
     const handleFilterChange = (value) => {
         setFilter(value);
 
@@ -154,7 +154,10 @@ const getNextDate = (date) => {
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-                    <ExpenseChart />
+                    <ExpenseChart
+                        fromDate={fromDate}
+                        toDate={toDate}
+                     />
                 </Grid>
             </Grid>
 

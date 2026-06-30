@@ -42,7 +42,7 @@ const KPI = ({ label, value, color }) => (
             {label}
         </Typography>
         <Typography variant="h6" sx={{ fontWeight: 700, color }}>
-            ${value}
+            {value}
         </Typography>
     </Box>
 );

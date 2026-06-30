@@ -12,7 +12,7 @@ const FILTER_OPTIONS = [
 ];
 
 const DateFilter = ({
-    filter = "This Month",
+    filter = "Today",
     fromDate = "",
     toDate = "",
     onFilterChange,

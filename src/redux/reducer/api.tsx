@@ -102,7 +102,8 @@ const initialState = {
 
     FinanceCard: `${web}dashboard/finance/card`,
     CashFlow: `${web}dashboard/finance/cash`,
-    TopProducts: `${web}dashboard/finance/topProducts`
+    TopProducts: `${web}dashboard/finance/topProducts`, 
+    GetExpenseChart: `${web}dashboard/finance/getExpenseChart`,
         
 };
 

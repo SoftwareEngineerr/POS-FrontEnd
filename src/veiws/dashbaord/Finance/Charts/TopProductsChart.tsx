@@ -83,9 +83,12 @@ const TopProductsChart = (props) => {
                     />
 
                     <Tooltip
-                        formatter={(value) => [
-                            `$${value.toLocaleString()}`,
-                            "Revenue",
+                        formatter={(value ,  quantity) => [
+                            `${value.toLocaleString()}`,
+                            "Revenue" ,
+                            `${quantity.toLocaleString()}`,
+                            "Quantity" ,
+                            
                         ]}
                         cursor={{ fill: "transparent" }}
                         contentStyle={{
@@ -110,7 +113,7 @@ const TopProductsChart = (props) => {
                     </defs>
 
                     <Bar
-                        dataKey="value"
+                        dataKey="revenue"
                         fill="url(#productGradient)"
                         radius={[10, 10, 10, 10]}
                         barSize={10}
@@ -120,17 +123,24 @@ const TopProductsChart = (props) => {
                             <Cell key={index} />
                         ))}
 
-                        <LabelList
-                            dataKey="value"
+                       <LabelList
+                            dataKey="revenue"
                             position="right"
-                                formatter={(v, entry) =>
-                                `$${v.toLocaleString()} | ${entry.quantity} pcs`
-                            }
+                            content={({ x, y, width, height, value, index }) => {
+                                const item = data[index];
 
-                            style={{
-                                fill: theme.palette.text.primary,
-                                fontSize: 12,
-                                fontWeight: 600,
+                                return (
+                                    <text
+                                        x={x + width + 8}
+                                        y={y + height / 2}
+                                        dominantBaseline="middle"
+                                        fill={theme.palette.text.primary}
+                                        fontSize={12}
+                                        fontWeight={600}
+                                    >
+                                        {`${value.toLocaleString()}`}
+                                    </text>
+                                );
                             }}
                         />
                     </Bar>
