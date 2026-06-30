@@ -16,7 +16,7 @@ import { useTheme } from "@mui/material";
 import ChartCard from "./ChartCard";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../../../redux/actions/GetRequest";
-import { Token } from "../../../../constant/token";
+import { getToken } from "../../../../constant/token";
 
 const data = [
     { name: "Long Dress", revenue: 8450 },
@@ -29,6 +29,7 @@ const data = [
 ];
 
 const TopProductsChart = (props) => {
+    const Token = getToken();
     const theme = useTheme();
     const url = useSelector((state)=>state.Api.TopProducts)
     const dispatch = useDispatch()

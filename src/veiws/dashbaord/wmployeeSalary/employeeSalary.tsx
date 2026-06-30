@@ -23,7 +23,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../../redux/actions/GetRequest";
-import { Token } from "../../../constant/token";
+import { getToken } from "../../../constant/token";
 import CopyButton from "../../../components/CopyButton/CopyButton";
 import CustomTableBody from "./components/SalaryTableBody";
 import { Components } from "../../../components";
@@ -33,6 +33,7 @@ import { ExpandCircleDownOutlined } from "@mui/icons-material";
 
 const EmployeeSalaryHistory = () => {
   const dispatch = useDispatch();
+  const Token = getToken();
   const url = useSelector((state : any) => state.Api);
 
   const [employees, setEmployees] = useState([]);
@@ -55,19 +56,6 @@ const EmployeeSalaryHistory = () => {
     fetchEmployees();
   }, []);
 
-//   // 📥 LOAD SALARY PER EMPLOYEE
-//   const loadSalary = async (employee_id) => {
-//     if (salaryData[employee_id]) return;
-
-//     const res = await dispatch(
-//       GetRequest(`${url.ShowEmployee}${employee_id}`, Token)
-//     );
-
-//     setSalaryData((prev) => ({
-//       ...prev,
-//       [employee_id]: res?.salary || [],
-//     }));
-//   };
 const loadSalary = async (employee_id, force = false) => {
   if (!force && salaryData[employee_id]) return;
 

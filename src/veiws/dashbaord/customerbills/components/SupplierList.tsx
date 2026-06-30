@@ -8,12 +8,13 @@ import {
   Accordion,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { Token } from "../../../../constant/token";
+import { getToken } from "../../../../constant/token";
 import { GetRequest } from "../../../../redux/actions/GetRequest";
 import { ExpandLess } from "@mui/icons-material";
 import ListAccordionDetails from "./accordionDetails";
 
 const SupplierList = () => {
+  const Token = getToken();
   const [data, setData] = useState();
   const [expanded, setExpanded] = useState(null); // 👈 track open accordion
 

@@ -17,7 +17,7 @@ import {
 import { PostRequest } from "../../../../redux/actions/PostRequest";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../../../redux/actions/GetRequest";
-import { Token } from "../../../../constant/token";
+import { getToken } from "../../../../constant/token";
 import { UpdateOwnState } from "../../../../redux/actions/state/state";
 
 const ReturnProductPopup = ({
@@ -34,6 +34,7 @@ const ReturnProductPopup = ({
 //   GetRequest,
 //   PostRequest
 }) => {
+  const Token = getToken();
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);

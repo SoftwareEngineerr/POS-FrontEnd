@@ -1,14 +1,15 @@
 import React, { memo, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../redux/actions/GetRequest";
-import { Token } from "../../constant/token";
+import { getToken } from "../../constant/token";
 
 import { Controller } from "react-hook-form";
 import { Select, MenuItem, Box, useTheme } from "@mui/material";
 import { BrandingWatermarkOutlined } from "@mui/icons-material";
 
 const Brand = memo(({ control  , name = "Brand", label = "Select Brand" }) => {
-    const checkState = useSelector((state : any)=> state.UpdateState)
+  const Token = getToken();
+  const checkState = useSelector((state : any)=> state.UpdateState)
   const dispatch = useDispatch();
   const url = useSelector((state : any) => state.Api);
   const theme = useTheme().palette

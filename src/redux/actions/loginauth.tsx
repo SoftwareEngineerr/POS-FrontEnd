@@ -1,6 +1,7 @@
 import axios from "axios";
-import { UserData } from "../../hooks/FirstTimeWebSrn/Websrn";
+// import { UserData } from "../../hooks/FirstTimeWebSrn/Websrn";
 import { useNavigate } from 'react-router';
+const UserData = JSON.parse(sessionStorage.getItem("User_Data"))
 
 export const loginauth = (payload) => {
   return async (dispatch) => {
@@ -18,10 +19,10 @@ export const loginauth = (payload) => {
         sessionStorage.setItem("User_Data", JSON.stringify(res.data));
         dispatch({
           type: 'FETCH_DATA_SUCCESS',
-          response: res.data.token,
+          // response: res.data.token,
           userdata: res.data
         });
-
+        console.log(res.data)
         // 👇 return value so component can handle it
         return { success: true, data: res.data };
       } else {

@@ -20,13 +20,14 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import { PostRequest } from "../../../redux/actions/PostRequest";
-import { Token } from "../../../constant/token";
+import { getToken } from "../../../constant/token";
 import { GetRequest } from "../../../redux/actions/GetRequest";
 import { ExpandCircleDownOutlined } from "@mui/icons-material";
 import EmployeeDetailsAccordion from "./components/EmployeeDetailsAccordion";
 import { Components } from "../../../components";
 
 const EmployeeList = () => {
+  const Token = getToken();
   const [employees, setEmployees] = useState([]);
   const [open, setOpen] = useState(false);
 

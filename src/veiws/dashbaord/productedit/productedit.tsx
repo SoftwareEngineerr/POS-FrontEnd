@@ -4,7 +4,7 @@ import { Box, Paper, Typography, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { PostRequest } from "../../../redux/actions/PostRequest";
 import { GetRequest } from "../../../redux/actions/GetRequest";
-import { Token } from "../../../constant/token";
+import { getToken } from "../../../constant/token";
 import Item from "./components/item";
 
 type ProductType = {
@@ -24,6 +24,8 @@ type FormValues = {
 export default function ProductManagement() {
   const dispatch = useDispatch();
   const url = useSelector((state: any) => state.Api);
+  const Token = getToken();
+
 
   const { control, register, setValue, watch, reset } = useForm<FormValues>({
     defaultValues: { products: [] }

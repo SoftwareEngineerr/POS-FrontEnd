@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import { Box, MenuItem, Select , useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../redux/actions/GetRequest";
-import { Token } from "../../constant/token";
+import { getToken } from "../../constant/token";
 import { CategoryOutlined } from "@mui/icons-material";
 
 // 👇 Styled Select (same idea as your TextField)
@@ -45,6 +45,7 @@ const StyledSelect = styled(Select)(({ theme }) => ({
 }));
 
 const Categorytypetwo = ({ getvalue, label = "Select Category" }) => {
+  const Token = getToken();
   const dispatch = useDispatch();
   const url = useSelector((state) => state.Api);
 

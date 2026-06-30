@@ -3,7 +3,7 @@ import { styled, useTheme } from "@mui/material/styles";
 import { Box, MenuItem, Select } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../redux/actions/GetRequest";
-import { Token } from "../../constant/token";
+import { getToken } from "../../constant/token";
 import { BrandingWatermarkOutlined } from "@mui/icons-material";
 
 // 👇 Styled Select (same design as your Input)
@@ -55,6 +55,7 @@ const StyledSelect = styled(Select)(({ theme }) => ({
 }));
 
 const Brandtypetwo = ({ getvalue, label = "Select Brand" }) => {
+  const Token = getToken();
   const dispatch = useDispatch();
   const url = useSelector((state) => state.Api);
 

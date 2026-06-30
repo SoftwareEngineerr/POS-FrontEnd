@@ -13,22 +13,18 @@ const SidebarItems = () => {
   const style = useTheme().palette.sidemenutext;
   const pathDirect = pathname;
   const dispatch = useDispatch();
-  const items= Menuitems();
+  // const items= Menuitems();
 
 
   const makeseconds = Math.random();
   const Stringconvertion = makeseconds.toString();
   const zeroToOne = Stringconvertion.replace('0','1')
 
-  function myfunc(){
-    setTimeout(()=>{
-      dispatch(ShowLoader('0'))
-    },1500)
-    dispatch(ShowLoader(zeroToOne))
+  const items = Menuitems();
+
+  if (!items.length) {
+    return null; // or loading skeleton
   }
-  useEffect(()=>{
-    myfunc()
-  },[])
 
   return (
     <Box pl={1} pr={2}>
@@ -46,7 +42,7 @@ const SidebarItems = () => {
           } else {
             if(item.href != undefined){
               return (
-                  <NavItem item={item} onClick={myfunc} key={ind}  pathDirect={pathDirect} />
+                  <NavItem item={item}  key={ind}  pathDirect={pathDirect} />
               );
             }
           }

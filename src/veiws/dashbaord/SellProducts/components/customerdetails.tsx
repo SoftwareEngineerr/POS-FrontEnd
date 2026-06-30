@@ -13,13 +13,14 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { PostRequest } from "../../../../redux/actions/PostRequest";
-import { Token } from "../../../../constant/token";
+import { getToken } from "../../../../constant/token";
 import { GetRequest } from "../../../../redux/actions/GetRequest";
 import { Components } from "../../../../components";
 import ShowModal from "../../../../redux/reducer/showmodal";
 import { CategoryOutlined } from "@mui/icons-material";
 
 const CustomerModal = (props) => {
+const Token = getToken();
 const [customers, setCustomers] = useState<any[]>([]);
 const [customerId, setCustomerId] = useState("-1");
 const [open, setOpen] = useState(false);

@@ -34,7 +34,7 @@ const Roznamcha = () => {
   }, [selectedDate]);
 
   const fetchPayments = async (date) => {
-    const token = JSON.parse(sessionStorage.getItem("User_Data"))?.token;
+    const Token = JSON.parse(sessionStorage.getItem("User_Data"))?.token;
 
     const res = await axios.post(
       api.DailyTransactions,

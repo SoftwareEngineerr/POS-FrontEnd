@@ -14,7 +14,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { PostRequest } from "../../../../redux/actions/PostRequest";
-import { Token } from "../../../../constant/token";
+import { getToken } from "../../../../constant/token";
 import { useDispatch, useSelector } from "react-redux";
 import { Components } from "../../../../components";
 import CustomerModal from "./customerdetails";
@@ -22,6 +22,7 @@ import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { UpdateOwnState } from "../../../../redux/actions/state/state";
 
 const BillSection = ({ cart, setCart }: any) => {
+    const Token = getToken();
     const dispatch = useDispatch()
     const url = useSelector((state : any)=>state.Api)
     const [checkdiscount , setCheckdiscount ] = useState()

@@ -29,8 +29,148 @@ import Finance from "../veiws/dashbaord/Finance";
           {path:'/' , element: <Navigate to="/login" />},
                 
         ],  
-          Menu:[
-            // ...(User_Data == undefined  ? [] : User_Data == 'empty' ? [] : [
+          Menu:{
+            SALESMAN:[
+                  {path:'/Private/' , element: <Navigate to="/Private/Order" /> },  
+                    {
+                      item: true,
+                      navlabel: true,
+                      subheader: <div className="mainMenuMain"><Typography variant="body1" component="span" sx={{display: (theme)=>(theme as any).palette?.sidemenutext?.display?.display || 'inline'}}> Home</Typography>
+                      {/* <Typography variant="body1" component="span" sx={{fontSize: '14px',marginLeft: '1px',display: (theme)=>(theme as any).palette.sidemenutext.display.display || 'inline'}}> اوډر  </Typography> */}
+                      </div>,
+                      title: '',
+                      icon: '',
+                      href: '',
+                      path: '',
+                      element: ''
+                    },
+                    
+                    {
+                      item: true,
+                      id: 1,
+                      title: (
+                        <Box className="menuItem" sx={{display: 'flex', justifyContent: 'space-between'}} >
+                          <span>Dashboard </span>
+                        </Box>
+                      ),
+                      icon: Dashboard,
+                      href: '/Private/Order',
+                      path: '/Private/Order',
+                      element: <div id="Refund"><Suspense><SellProducts /></Suspense></div>
+                    },
+
+
+                    // {
+                    //   item: true,
+                    //   id: 3,
+                    //   title: (
+                    //     <Box className="menuItem" sx={{display: 'flex', justifyContent: 'space-between'}} >
+                    //       <span>Products Edit </span>
+                    //     </Box>
+                    //   ),
+                    //   icon: Dashboard,
+                    //   href: '/Private/Product/Edit',
+                    //   path: '/Private/Product/Edit',
+                    //   element: <div id="Refund"><Suspense><ProductEdit /></Suspense></div>
+                    // },
+
+                    {
+                      item: true,
+                      id: 4,
+                      title: (
+                        <Box className="menuItem" sx={{display: 'flex', justifyContent: 'space-between'}} >
+                          <span>Khata </span>
+                        </Box>
+                      ),
+                      icon: AccountBalanceWalletSharp,
+                      href: '/Private/Khata',
+                      path: '/Private/Khata',
+                      element: <div id="Refund"><Suspense><CustomerRegister /></Suspense></div>
+                    },
+
+                    {
+                      item: true,
+                      id: 5,
+                      title: (
+                        <Box className="menuItem" sx={{display: 'flex', justifyContent: 'space-between'}} >
+                          <span>Return </span>
+                        </Box>
+                      ),
+                      icon: AssignmentReturnSharp,
+                      href: '/Private/return',
+                      path: '/Private/return',
+                      element: <div id="Refund"><Suspense><CustomerReturn /></Suspense></div>
+                    },
+              
+            ],
+            BUYER:[
+                  {path:'/Private/' , element: <Navigate to="/Private/Product" /> },         
+                    {
+                      item: true,
+                      navlabel: true,
+                      subheader: <div className="mainMenuMain"><Typography variant="body1" component="span" sx={{display: (theme)=>(theme as any).palette?.sidemenutext?.display?.display || 'inline'}}> Supplier</Typography>
+                      {/* <Typography variant="body1" component="span" sx={{fontSize: '14px',marginLeft: '1px',display: (theme)=>(theme as any).palette.sidemenutext.display.display || 'inline'}}> اوډر  </Typography> */}
+                      </div>,
+                      title: '',
+                      icon: '',
+                      href: '',
+                      path: '',
+                      element: ''
+                    },
+
+                    
+                    {
+                      item: true,
+                      id: 2,
+                      title: (
+                        <Box className="menuItem" sx={{display: 'flex', justifyContent: 'space-between'}} >
+                          <span>Buy Products </span>
+                        </Box>
+                      ),
+                      icon: Inventory2Sharp,
+                      href: '/Private/Product',
+                      path: '/Private/Product',
+                      element: <div id="Refund"><Suspense>
+                        <ProductRegistration />
+  </Suspense>                    </div>
+                    },
+
+                    
+                    {
+                      item: true,
+                      id: 11,
+                      title: (
+                        <Box className="menuItem" sx={{display: 'flex', justifyContent: 'space-between'}} >
+                          <span>Supplier Khata </span>
+                        </Box>
+                      ),
+                      icon: LocalShippingRounded,
+                      href: '/Private/supplier/register',
+                      path: '/Private/supplier/register',
+                      element: <div id="Refund"><Suspense>
+                        <SupplierRegister />
+  </Suspense>                    </div>
+                    },
+                    
+                    {
+                      item: true,
+                      id: 11,
+                      title: (
+                        <Box className="menuItem" sx={{display: 'flex', justifyContent: 'space-between'}} >
+                          <span>Supplier Return</span>
+                        </Box>
+                      ),
+                      icon: AssignmentReturnSharp,
+                      href: '/Private/supplier/return',
+                      path: '/Private/supplier/return',
+                      element: <div id="Refund"><Suspense>
+                        <SupplierReturn />
+  </Suspense>                    </div>
+                    },
+                    
+
+            ],
+            PARTNER:[
               {path:'/Private/' , element: <Navigate to="/Private/Order" /> },
                     
                     {
@@ -299,8 +439,9 @@ import Finance from "../veiws/dashbaord/Finance";
                       path: '/Private/divest',
                       element: <div id="Refund"><Suspense><DivestmentPage /></Suspense></div>
                     },
-              
-          ]
+               
+            ]
+      }
       }
     }
   }

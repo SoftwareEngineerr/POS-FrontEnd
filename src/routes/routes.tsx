@@ -1,31 +1,38 @@
-import { Navigate, Outlet } from 'react-router';
-import { RouteHeader } from '../constant/routeAndHeader';
-import FullLayout from '../layouts/full/FullLayout';
+import { useSelector } from "react-redux";
+import { useMemo } from "react";
+import { Outlet } from "react-router";
+import { RouteHeader } from "../constant/routeAndHeader";
+import FullLayout from "../layouts/full/FullLayout";
+import Login from "../veiws/website/Login/login";
 
+import { Navigate } from "react-router-dom";
 
-const func = () =>{
-  const getdata = RouteHeader().router
-  return getdata
-}
-const routesData = func();   // ← FIX: CALL ONLY ONCE\\
+export const useAppRoutes = () => {
+  const role = useSelector((state: any) => state.LoginState?.data?.user?.role);
+  
+  return useMemo(() => {
+    const routesData = RouteHeader();
+    console.log(role , routesData.router?.Menu?.[role?.toUpperCase()])
 
-export const Routering = [
-  {
-    path: '/',
-    element: (
-      <>
-        <Outlet />
-      </>
-    ),
-    children: [
-      ...routesData.SinglePage
-    ]
-  },
-  {
-    path: '/Private/',
-    element: <div id="fullLayout"><FullLayout /></div>,
-    children: [
-      ...routesData.Menu
-    ]
-  }
-];
+    return [
+      // 🔥 PUBLIC ROUTES (ALWAYS AVAILABLE)
+      {
+        path: "/login",
+        element: <Login />
+      },
+      {
+        path: "/",
+        element: <Navigate to="/login" />
+      },
+
+      // 🔥 PRIVATE ROUTES (ROLE BASED)
+      {
+        path: "/Private/",
+        element: <FullLayout />,
+        children: role
+          ? routesData.router?.Menu?.[role?.toUpperCase()] || []
+          : []
+      }
+    ];
+  }, [role]);
+};

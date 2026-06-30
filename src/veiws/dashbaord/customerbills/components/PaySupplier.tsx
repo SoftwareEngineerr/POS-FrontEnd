@@ -12,11 +12,12 @@ import {
 } from "@mui/material";
 import { Components } from "../../../../components";
 import { PostRequest } from "../../../../redux/actions/PostRequest";
-import { Token } from "../../../../constant/token";
+import { getToken } from "../../../../constant/token";
 import { useDispatch, useSelector } from "react-redux";
 import { UpdateOwnState } from "../../../../redux/actions/state/state";
 
 const PaySupplier = ({supplier}) => {
+  const Token = getToken();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch()
   const url = useSelector((state)=>state.Api)

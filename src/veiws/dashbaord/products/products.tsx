@@ -21,7 +21,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 import { useDispatch, useSelector } from "react-redux";
 import { PostRequest } from "../../../redux/actions/PostRequest";
-import { Token } from "../../../constant/token";
+import { getToken } from "../../../constant/token";
 import { Components } from "../../../components";
 import Category from "./components/category";
 import Brand from "./components/brand";
@@ -42,6 +42,7 @@ const productInputs = [
 ];
 
 export default function ProductRegistration() {
+  const Token = getToken();
   const dispatch = useDispatch()
   const url = useSelector((state : any)=> state.Api)
   const [supplier , setSupplier ] = useState()

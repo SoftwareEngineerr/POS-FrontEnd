@@ -12,12 +12,13 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../../../redux/actions/GetRequest";
-import { Token } from "../../../../constant/token";
+import { getToken } from "../../../../constant/token";
 import CustomTable from "./table";
 import { Components } from "../../../../components";
 import PaySupplier from "./PaySupplier";
 
 const ListAccordionDetails = ({ supplier }) => {
+  const Token = getToken();
   const dispatch = useDispatch();
   const State = useSelector((state) => state);
   // const state = useSelector((state) => state.UpdateState);

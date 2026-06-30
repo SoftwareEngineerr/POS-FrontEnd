@@ -19,7 +19,7 @@ import Grid from "@mui/material/Grid";
 
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../../../redux/actions/GetRequest";
-import { Token } from "../../../../constant/token";
+import { getToken } from "../../../../constant/token";
 import { Components } from "../../../../components";
 import { GridViewOutlined, GridViewSharp, ViewListOutlined, ViewListSharp } from "@mui/icons-material";
 
@@ -35,6 +35,7 @@ type Product = {
 };
 
 const ProductList = ({ cart, setCart }: any) => {
+  const Token = getToken();
   const dispatch = useDispatch();
   const url = useSelector((state: any) => state.Api);
   const stateChecker = useSelector((state: any) => state.UpdateState);

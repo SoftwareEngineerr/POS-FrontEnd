@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../redux/actions/GetRequest";
-import { Token } from "../../constant/token";
+import { getToken } from "../../constant/token";
 
 const StyledInput = styled(TextField)(({ theme }) => ({
   width: "100%",
@@ -20,6 +20,7 @@ const StyledInput = styled(TextField)(({ theme }) => ({
 }));
 
 export const SuggestionInput = memo(({ label, onSelect , onChange }) => {
+  const Token = getToken();
   const dispatch = useDispatch();
   const url = useSelector((state) => state.Api);
 

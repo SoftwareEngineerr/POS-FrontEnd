@@ -19,7 +19,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // import { GetRequest } from "../../../redux/actions/GetRequest";
 import { useDispatch, useSelector } from "react-redux";
-import { Token } from "../../../../constant/token";
+import { getToken } from "../../../../constant/token";
 import { GetRequest } from "../../../../redux/actions/GetRequest";
 import Showimage from "../../../../components/showimage/showimage";
 import { Components } from "../../../../components";
@@ -27,6 +27,7 @@ import ReturnProductPopup from "./returnProductsPopup";
 import { UpdateOwnState } from "../../../../redux/actions/state/state";
 
 const BillAccordion = ({ bill }) => {
+    const Token = getToken();
   const dispatch = useDispatch();
   const [expanded, setExpanded] = useState(false);
   const [products, setProducts] = useState([]);

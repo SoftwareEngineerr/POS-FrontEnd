@@ -23,10 +23,10 @@ export const Upgrade = () => {
         localStorage.removeItem("login_timer_start"); 
         // localStorage.setItem("LoggedIn", 'False');
         sessionStorage.clear(); 
+        navigate('/login')
 
-
-      window.location.reload(true)
-      window.location.href = "/login";
+      // window.location.reload(true)
+      // window.location.href = "/login";
     }
     const refresh = () => { 
         if (window.electron) { 
@@ -52,6 +52,7 @@ export const Upgrade = () => {
                         marginLeft:"10px"
                       }}
                       data="Logout"
+                      click={logOut}
                     />
                     {/* <Box sx={{width:"20px",height:"10pxs"}}></Box> */}
                     {/* / */}

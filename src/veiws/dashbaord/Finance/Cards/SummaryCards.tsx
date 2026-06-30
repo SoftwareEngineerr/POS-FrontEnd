@@ -14,10 +14,11 @@ import FinanceCard from "./FinanceCard";
 import { MoneyOutlined, Shop2Outlined, ShopOutlined, ShoppingBagOutlined, TrendingUpOutlined, WalletOutlined } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../../../redux/actions/GetRequest";
-import { Token } from "../../../../constant/token";
+import { getToken } from "../../../../constant/token";
 
 
 const SummaryCards = (props : any) => {
+    const Token = getToken();
     const theme = useTheme().palette
     const url = useSelector((state)=>state.Api.FinanceCard)
     const dispatch = useDispatch()

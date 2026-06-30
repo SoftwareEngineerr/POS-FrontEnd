@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 import { Box, MenuItem, Select, useTheme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetRequest } from '../../redux/actions/GetRequest';
-import { Token } from '../../constant/token';
+import { getToken } from '../../constant/token';
 import { VerifiedUserSharp } from '@mui/icons-material';
 import { IconUser, IconUserX } from '@tabler/icons-react';
 
 const Supplier = ({ getvalue, label = "Please Select Supplier" }) => {
   const dispatch = useDispatch();
+  const Token = getToken();
   const url = useSelector((state : any) => state.Api);
   const theme = useTheme().palette;
 

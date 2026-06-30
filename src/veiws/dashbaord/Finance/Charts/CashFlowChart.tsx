@@ -16,7 +16,7 @@ import { useTheme, Box, Stack, Typography, ToggleButton, ToggleButtonGroup } fro
 import ChartCard from "./ChartCard";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../../../redux/actions/GetRequest";
-import { Token } from "../../../../constant/token";
+import { getToken } from "../../../../constant/token";
 
 const fullData = {
     today: [
@@ -48,6 +48,7 @@ const KPI = ({ label, value, color }) => (
 );
 
 const CashFlowChart = (props) => {
+    const Token = getToken();
     const theme = useTheme();
     const [view, setView] = useState("today");
 

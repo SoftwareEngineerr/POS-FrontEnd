@@ -112,7 +112,7 @@ const Auth: React.FC = () => {
       const result = await dispatch(loginauth(payload));
       if (result?.success) {
         setLoading(false);
-        navigate('/Private/Order');
+        navigate('/Private');
       } else {
         setLoading(false);
         setLoginError('Invalid credentials or login failed.');

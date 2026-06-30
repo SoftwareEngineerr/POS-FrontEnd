@@ -15,11 +15,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../../redux/actions/GetRequest";
-import { Token } from "../../../constant/token";
+import { getToken } from "../../../constant/token";
 import BillAccordion from "./components/BillAccordion";
 import { Components } from "../../../components";
 
 const CustomerReturn = () => {
+  const Token = getToken();
   const dispatch = useDispatch();
   const url = useSelector((state : any) => state.Api);
 

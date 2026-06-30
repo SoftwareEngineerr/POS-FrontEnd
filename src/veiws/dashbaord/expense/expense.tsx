@@ -3,7 +3,7 @@ import { Box, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../../redux/actions/GetRequest";
 import { PostRequest } from "../../../redux/actions/PostRequest";
-import { Token } from "../../../constant/token";
+import { getToken } from "../../../constant/token";
 
 import ExpenseHeader from "./Header/ExpenseHeader";
 import ExpenseFilter from "./Filter/ExpenseFilter";
@@ -13,6 +13,7 @@ import { CategoryOutlined, MoneyOutlined, ReceiptOutlined, TrendingUpOutlined, W
 import { Components } from "../../../components";
 
 const ExpensePage = () => {
+  const Token = getToken();
   const dispatch = useDispatch();
   const geturl = useSelector((state) => state.Api);
 

@@ -14,16 +14,9 @@ import { useTheme } from "@mui/material";
 import ChartCard from "./ChartCard";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRequest } from "../../../../redux/actions/GetRequest";
-import { Token } from "../../../../constant/token";
+import { getToken } from "../../../../constant/token";
 
-// const data = [
-//     { name: "Salary", value: 35 },
-//     { name: "Rent", value: 20 },
-//     { name: "Marketing", value: 15 },
-//     { name: "Electricity", value: 10 },
-//     { name: "Transport", value: 10 },
-//     { name: "Other", value: 10 },
-// ];
+
 const COLORS = [
   "#8B5CF6",
   "#EC4899",
@@ -70,6 +63,7 @@ const COLORS = [
 
 
 const ExpenseChart = (props) => {
+    const Token = getToken();
     const theme = useTheme()
     const url = useSelector((state)=>state.Api.GetExpenseChart)
     const dispatch = useDispatch()

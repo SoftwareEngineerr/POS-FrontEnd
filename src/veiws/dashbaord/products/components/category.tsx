@@ -2,12 +2,13 @@ import React, { useState, ChangeEvent } from "react";
 import { Components } from "../../../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { PostRequest } from "../../../../redux/actions/PostRequest";
-import { Token } from "../../../../constant/token";
+import { getToken } from "../../../../constant/token";
 import { UpdateOwnState } from "../../../../redux/actions/state/state";
 import { FileCopyOutlined, FileCopySharp, FolderCopyOutlined } from "@mui/icons-material";
 // import UpdateState from "../../../../redux/reducer/state/state";
 
 const Category: React.FC = () => {
+  const Token = getToken();
   const [open, setOpen] = useState<boolean>(false);
   const [categoryName, setCategoryName] = useState<string>("");
   const [image, setImage] = useState<any>(null);
